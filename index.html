@@ -22,7 +22,10 @@
     --text-3: #646b80;
     --accent: #ff4a1c;
     --accent-2: #4f7cff;
+    --purple: #8b5cf6;
+    --purple-2: #6d28d9;
     --lime: #c8ff3d;
+    --green: #22c55e;
     --serif: 'Fraunces', Georgia, serif;
     --sans: 'Inter', system-ui, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -162,10 +165,7 @@
     color: var(--text-2);
     list-style: none;
   }
-  .nav-menu a {
-    padding: 4px 0;
-    transition: color 0.2s;
-  }
+  .nav-menu a { padding: 4px 0; transition: color 0.2s; }
   .nav-menu a:hover { color: var(--accent); }
   .nav-menu a sup { font-size: 0.55rem; color: var(--text-3); margin-left: 2px; }
   .nav-actions {
@@ -644,153 +644,277 @@
   .ps-body { color: var(--text-2); font-size: 0.88rem; }
 
   /* ============ PRICING ============ */
-  .billing-note {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 0;
-    margin-bottom: 28px;
-    font-family: var(--mono);
-    font-size: 0.74rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-3);
-    flex-wrap: wrap;
-    gap: 16px;
+  .pricing-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 80px;
   }
-  .billing-toggle {
-    display: flex;
-    border: 1px solid var(--line-hi);
-    border-radius: 99px;
-    overflow: hidden;
+  .pricing-head .sec-num {
+    display: inline-block;
+    margin-bottom: 20px;
   }
-  .billing-toggle button {
-    padding: 9px 20px;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-family: var(--mono);
+  .pricing-head h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .pricing-head h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .pricing-head p {
     color: var(--text-2);
-    transition: all 0.3s;
-  }
-  .billing-toggle button.active {
-    background: var(--accent);
-    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 540px;
+    margin: 0 auto;
   }
 
-  .pricing {
+  .pricing-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    overflow: hidden;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
+
   .plan {
-    padding: 44px 34px 34px;
-    border-right: 1px solid var(--line);
+    position: relative;
+    background: linear-gradient(180deg, #131722, #0e111a);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 40px 32px 36px;
     display: flex;
     flex-direction: column;
-    gap: 26px;
-    position: relative;
-    transition: background 0.3s;
+    transition: all 0.4s var(--ease);
   }
-  .plan:last-child { border-right: none; }
-  .plan:hover { background: rgba(255,255,255,0.015); }
+
+  .plan:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.9);
+  }
+
   .plan.featured {
-    background: linear-gradient(180deg, rgba(255,74,28,0.06), transparent 60%);
+    background: linear-gradient(180deg, #1e1b3a, #14122a);
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow:
+      0 30px 80px -30px rgba(139, 92, 246, 0.4),
+      0 0 0 1px rgba(139, 92, 246, 0.15);
   }
+
   .plan.featured::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--accent);
-    box-shadow: 0 0 24px var(--accent);
+    inset: 0;
+    border-radius: 20px;
+    background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.15), transparent 60%);
+    pointer-events: none;
   }
-  .plan-num { font-family: var(--mono); font-size: 0.72rem; color: var(--text-3); letter-spacing: 0.1em; }
-  .plan-tag {
+
+  .plan > * { position: relative; z-index: 1; }
+
+  .plan-badge {
+    position: absolute;
+    top: -14px;
+    left: 32px;
+    background: linear-gradient(135deg, var(--purple), var(--accent-2));
+    color: white;
     font-family: var(--mono);
-    font-size: 0.7rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--accent);
+    padding: 6px 14px;
+    border-radius: 99px;
+    box-shadow: 0 8px 24px -8px rgba(139, 92, 246, 0.6);
   }
-  .plan.featured .plan-tag::before { content: '◉ '; color: var(--lime); }
+
   .plan-name {
     font-family: var(--serif);
-    font-size: 2.4rem;
-    font-weight: 400;
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-  .plan-name em { font-style: italic; color: var(--accent); }
-  .plan-price {
-    font-family: var(--mono);
-    font-size: 2.6rem;
-    font-weight: 300;
+    font-weight: 500;
+    font-size: 1.6rem;
     letter-spacing: -0.02em;
-    line-height: 1;
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
+    margin-bottom: 20px;
     color: var(--text);
   }
-  .plan-price .per {
-    font-size: 0.78rem;
+
+  .plan-name em { font-style: italic; color: var(--accent); }
+
+  .plan-price {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .plan-price .amount {
+    font-family: var(--sans);
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .plan-price .period {
+    font-family: var(--sans);
+    font-size: 0.9rem;
     color: var(--text-3);
-    letter-spacing: 0;
     font-weight: 400;
   }
+
   .plan-desc {
     color: var(--text-2);
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     line-height: 1.6;
-    padding-bottom: 26px;
-    border-bottom: 1px solid var(--line);
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
+
   .plan-features {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
     flex: 1;
-    font-size: 0.88rem;
+    margin-bottom: 32px;
+    font-size: 0.92rem;
   }
+
   .plan-features li {
     display: flex;
     align-items: flex-start;
     gap: 12px;
     color: var(--text-2);
+    line-height: 1.5;
   }
-  .plan-features li::before {
-    content: '';
-    width: 12px; height: 1px;
-    background: var(--accent);
-    margin-top: 10px;
+
+  .plan-features li .check {
+    width: 16px;
+    height: 16px;
     flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--green);
+    stroke-width: 3;
   }
-  .plan-features li.off { color: var(--text-3); text-decoration: line-through; }
-  .plan-features li.off::before { background: var(--text-3); }
+
+  .plan.featured .plan-features li .check { color: #a78bfa; }
+
+  .plan-features li.off {
+    color: var(--text-3);
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+
+  .plan-features li.off .check { color: var(--text-3); }
+
   .plan-cta {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 14px 22px;
-    border: 1px solid var(--line-hi);
-    border-radius: 99px;
+    justify-content: center;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-family: var(--sans);
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.3s var(--ease);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .plan-cta:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .plan.featured .plan-cta {
+    background: linear-gradient(135deg, var(--purple), var(--accent-2));
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 12px 30px -10px rgba(139, 92, 246, 0.5);
+  }
+
+  .plan.featured .plan-cta:hover {
+    box-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.7);
+    transform: translateY(-2px);
+  }
+
+  /* ============ ADD-ONS ============ */
+  .addons {
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+  }
+
+  .addons-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 32px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .addons-head h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+  }
+
+  .addons-head p {
     font-family: var(--mono);
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
+    color: var(--text-3);
+  }
+
+  .addons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .addon {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--line);
+    border-radius: 12px;
     transition: all 0.3s var(--ease);
   }
-  .plan-cta:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px -10px rgba(255,74,28,0.5);
+
+  .addon:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--line-hi);
   }
-  .plan-cta::after { content: '→'; }
+
+  .addon-name {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .addon-price {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
 
   /* ============ QUOTES ============ */
   .quotes {
@@ -1099,9 +1223,8 @@
     .work { grid-column: span 1 !important; }
     .process { grid-template-columns: repeat(2, 1fr); }
     .process-step:nth-child(2) { border-right: none; }
-    .pricing { grid-template-columns: 1fr; }
-    .plan { border-right: none; border-bottom: 1px solid var(--line); }
-    .plan:last-child { border-bottom: none; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
+    .addons-grid { grid-template-columns: repeat(2, 1fr); }
     .quotes { grid-template-columns: 1fr; gap: 56px; }
     .foot-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
     .faq-a-inner { margin-left: 0; }
@@ -1135,6 +1258,10 @@
     .process { grid-template-columns: 1fr; }
     .process-step { border-right: none; border-bottom: 1px solid var(--line); }
     .process-step:last-child { border-bottom: none; }
+    .plan { padding: 32px 24px 28px; }
+    .plan-badge { left: 24px; }
+    .addons { padding: 28px 20px; }
+    .addons-grid { grid-template-columns: 1fr; }
     .cta { padding: 72px 24px; }
     .foot-grid { grid-template-columns: 1fr; gap: 40px; }
     .s-title { font-size: 1.2rem; }
@@ -1160,11 +1287,11 @@
 <div class="ticker">
   <div class="ticker-track">
     <span>Booking Q1 2025</span>
-    <span>Est. 2018 — Lisbon / Remote</span>
+    <span>Est. 2018 — Tirana / Remote</span>
     <span>Currently: 4 open slots</span>
     <span>Avg. reply time: 2h</span>
     <span>Booking Q1 2025</span>
-    <span>Est. 2018 — Lisbon / Remote</span>
+    <span>Est. 2018 — Tirana / Remote</span>
     <span>Currently: 4 open slots</span>
     <span>Avg. reply time: 2h</span>
   </div>
@@ -1196,7 +1323,7 @@
   <div class="container">
     <div class="hero-meta reveal">
       <div><span>Studio</span><strong>ByteBuilt®</strong></div>
-      <div><span>Founded</span><strong>2018, Lisbon</strong></div>
+      <div><span>Founded</span><strong>2018, Tirana</strong></div>
       <div><span>Practice</span><strong>Web · Brand · Product</strong></div>
       <div class="live"><span>Availability</span><strong>Q1 2025 — 4 slots</strong></div>
     </div>
@@ -1436,78 +1563,179 @@
 <!-- ============ PRICING ============ -->
 <section id="pricing">
   <div class="container">
-    <div class="sec-head reveal">
+    <div class="pricing-head reveal">
       <div class="sec-num">Pricing / 04</div>
-      <h2 class="sec-title">Clear scope, <em>clear price.</em></h2>
+      <h2>Clear packages, <em>no surprises.</em></h2>
+      <p>One-time build cost. No hidden fees, no subscriptions, no fluff. Every package includes hosting setup, SSL, and 30 days of free support.</p>
     </div>
 
-    <div class="billing-note reveal">
-      <span>Fixed-fee projects or monthly retainers — pick the model that suits your team</span>
-      <div class="billing-toggle" id="billingToggle">
-        <button class="active" data-mode="project">Project</button>
-        <button data-mode="monthly">Retainer</button>
-      </div>
-    </div>
+    <div class="pricing-grid reveal">
 
-    <div class="pricing reveal">
+      <!-- Standard / Web Business -->
       <div class="plan">
-        <div class="plan-num">Plan / 01</div>
-        <div class="plan-tag">Starter</div>
-        <h3 class="plan-name">Foundry</h3>
+        <h3 class="plan-name">Web <em>Business</em></h3>
         <div class="plan-price">
-          <span class="amt" data-project="1,800" data-monthly="950">$1,800</span>
-          <span class="per" data-project="/ one-time" data-monthly="/ month">/ one-time</span>
+          <span class="amount">€399</span>
+          <span class="period">one-time</span>
         </div>
-        <p class="plan-desc">A focused 4–5 page marketing site. Getting a new business online with the right foundations.</p>
+        <p class="plan-desc">Perfect for small businesses that need a professional presence online — fast.</p>
         <ul class="plan-features">
-          <li>Up to 5 custom-designed pages</li>
-          <li>Mobile & tablet responsive</li>
-          <li>Basic on-page SEO</li>
-          <li>Contact form + analytics</li>
-          <li class="off">CMS / blog</li>
-          <li class="off">E-commerce</li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Standard custom design
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Mobile responsive
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Slider Revolution
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Business logo design
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            2+ webmail addresses
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            1 GB storage space
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            SEO + 10+ pages
+          </li>
         </ul>
-        <a href="#contact" class="plan-cta">Get a quote</a>
+        <a href="#contact" class="plan-cta">Get Started</a>
       </div>
 
+      <!-- E-Commerce (Featured) -->
       <div class="plan featured">
-        <div class="plan-num">Plan / 02</div>
-        <div class="plan-tag">Most chosen</div>
-        <h3 class="plan-name"><em>Studio</em></h3>
+        <div class="plan-badge">Most Flexible</div>
+        <h3 class="plan-name">E-<em>Commerce</em></h3>
         <div class="plan-price">
-          <span class="amt" data-project="4,200" data-monthly="1,900">$4,200</span>
-          <span class="per" data-project="/ one-time" data-monthly="/ month">/ one-time</span>
+          <span class="amount">€599–€1,199</span>
+          <span class="period">one-time</span>
         </div>
-        <p class="plan-desc">Our flagship package. Design, build, and launch — with room to iterate after go-live.</p>
+        <p class="plan-desc">Full online store — products, payments, orders, and everything needed to sell online.</p>
         <ul class="plan-features">
-          <li>Up to 15 custom pages</li>
-          <li>CMS / blog integration</li>
-          <li>Advanced technical SEO</li>
-          <li>Analytics dashboard</li>
-          <li>Performance & accessibility pass</li>
-          <li>3 months of support included</li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            E-commerce design
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Multiple products
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Mobile responsive
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Slider Revolution
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Business logo design
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            2+ webmail addresses
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            SEO + 1 GB storage
+          </li>
         </ul>
-        <a href="#contact" class="plan-cta">Book a call</a>
+        <a href="#contact" class="plan-cta">Get Started</a>
       </div>
 
+      <!-- Pro / Custom -->
       <div class="plan">
-        <div class="plan-num">Plan / 03</div>
-        <div class="plan-tag">Partner</div>
-        <h3 class="plan-name">Atelier</h3>
+        <h3 class="plan-name">Pro <em>Custom</em></h3>
         <div class="plan-price">
-          <span class="amt" data-project="9,500" data-monthly="3,800">$9,500</span>
-          <span class="per" data-project="/ one-time" data-monthly="/ month">/ one-time</span>
+          <span class="amount">€1,499+</span>
+          <span class="period">one-time</span>
         </div>
-        <p class="plan-desc">Long-term engagement for teams that ship continuously. Retainer preferred, project work possible.</p>
+        <p class="plan-desc">For businesses that need something bigger — portals, dashboards, multi-language, integrations.</p>
         <ul class="plan-features">
-          <li>Unlimited pages & custom features</li>
-          <li>Design system & components</li>
-          <li>E-commerce or web app</li>
-          <li>Dedicated point of contact</li>
-          <li>Priority support & SLA</li>
-          <li>12 months of care included</li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Unlimited pages
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Admin dashboard
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Multi-language support
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            API integrations
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Advanced SEO
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Priority support
+          </li>
+          <li>
+            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Dedicated project manager
+          </li>
         </ul>
-        <a href="#contact" class="plan-cta">Talk to us</a>
+        <a href="#contact" class="plan-cta">Get a Quote</a>
+      </div>
+
+    </div>
+
+    <!-- Add-ons -->
+    <div class="addons reveal">
+      <div class="addons-head">
+        <h3>Add-ons & <em style="font-style: italic; color: var(--accent);">extras</em></h3>
+        <p>Mix & match with any package</p>
+      </div>
+      <div class="addons-grid">
+        <div class="addon">
+          <div class="addon-name">Extra page</div>
+          <div class="addon-price">€40 each</div>
+        </div>
+        <div class="addon">
+          <div class="addon-name">Extra product</div>
+          <div class="addon-price">€3 each</div>
+        </div>
+        <div class="addon">
+          <div class="addon-name">Blog setup + 3 posts</div>
+          <div class="addon-price">€150</div>
+        </div>
+        <div class="addon">
+          <div class="addon-name">Google Maps integration</div>
+          <div class="addon-price">€30</div>
+        </div>
+        <div class="addon">
+          <div class="addon-name">WhatsApp / chat widget</div>
+          <div class="addon-price">€50</div>
+        </div>
+        <div class="addon">
+          <div class="addon-name">Booking / reservation system</div>
+          <div class="addon-price">€250+</div>
+        </div>
+        <div class="addon">
+          <div class="addon-name">Monthly maintenance</div>
+          <div class="addon-price">from €30/mo</div>
+        </div>
+        <div class="addon">
+          <div class="addon-name">Copywriting</div>
+          <div class="addon-price">€60 / page</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1566,7 +1794,7 @@
           <span class="t">How long does a project usually take?</span>
           <span class="sign">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">A typical marketing site takes 3–5 weeks from kickoff to launch. E-commerce and custom platforms run 6–10 weeks. We'll give you a real timeline after the intro call, not a sales estimate.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">A typical Web Business site takes 1–2 weeks from kickoff to launch. E-commerce runs 2–4 weeks. Pro Custom depends on the scope — usually 4+ weeks. We'll give you a real timeline after the intro call, not a sales estimate.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">
@@ -1582,7 +1810,7 @@
           <span class="t">Do you offer ongoing support?</span>
           <span class="sign">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Yes — monthly retainers cover updates, monitoring, content changes, and small improvements. We also offer ad-hoc support if you'd prefer.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — monthly retainers from €30/month cover updates, monitoring, content changes, and small improvements. We also offer ad-hoc support if you'd prefer.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">
@@ -1595,10 +1823,10 @@
       <div class="faq-item">
         <button class="faq-q">
           <span class="n">05 / Q</span>
-          <span class="t">Do you work with clients outside your timezone?</span>
+          <span class="t">How do payments work?</span>
           <span class="sign">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Constantly. We overlap at least 3 hours with most timezones and default to async updates so you're not stuck in meetings.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Simple: 50% deposit to start, 50% on delivery. For larger projects we split into milestones. Bank transfer, PayPal, or card — whichever works for you.</div></div>
       </div>
     </div>
   </div>
@@ -1610,8 +1838,8 @@
     <div class="cta-meta">Ready when you are — booking Q1 2025</div>
     <h2 class="cta-title">Let's build something <em>worth remembering.</em></h2>
     <div class="cta-actions">
-      <a href="mailto:hello@bytebuilt.app" class="cta-btn primary">Email hello@bytebuilt.app</a>
-      <a href="#" class="cta-btn">Book a 30-min call</a>
+      <a href="mailto:bytebuiltweb@gmail.com" class="cta-btn primary">Email bytebuiltweb@gmail.com</a>
+      <a href="https://instagram.com/bytebulit.comp" target="_blank" rel="noopener" class="cta-btn">Message on Instagram</a>
     </div>
   </div>
 </div>
@@ -1630,7 +1858,7 @@
     <div class="foot-grid">
       <div>
         <div class="foot-brand">ByteBuilt<sup>®</sup></div>
-        <p class="foot-about">A small studio crafting considered digital work. Founded 2018, Lisbon. Working remotely with clients worldwide.</p>
+        <p class="foot-about">A small studio crafting considered digital work. Founded 2018, Tirana. Working remotely with clients worldwide.</p>
       </div>
       <div class="foot-col">
         <h5>Services</h5>
@@ -1654,18 +1882,18 @@
       <div class="foot-col">
         <h5>Contact</h5>
         <ul>
-          <li><a href="mailto:hello@bytebuilt.app">hello@bytebuilt.app</a></li>
-          <li><a href="#">+351 210 000 000</a></li>
-          <li><a href="#">Lisbon · Remote</a></li>
+          <li><a href="mailto:bytebuiltweb@gmail.com">bytebuiltweb@gmail.com</a></li>
+          <li><a href="https://instagram.com/bytebulit.comp" target="_blank" rel="noopener">@bytebulit.comp</a></li>
+          <li><a href="#">Tirana, Albania</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bottom">
       <span>© 2025 ByteBuilt® — All rights reserved.</span>
       <div class="foot-bottom-links">
+        <a href="https://instagram.com/bytebulit.comp" target="_blank" rel="noopener">Instagram</a>
         <a href="#">Privacy</a>
         <a href="#">Terms</a>
-        <a href="#">Cookies</a>
       </div>
     </div>
   </div>
@@ -1675,7 +1903,7 @@
 (function() {
   'use strict';
 
-  /* ============ CUSTOM CURSOR (fast & smooth) ============ */
+  /* ============ CUSTOM CURSOR ============ */
   const dot = document.getElementById('curDot');
   const ring = document.getElementById('curRing');
   const isTouch = matchMedia('(pointer: coarse)').matches;
@@ -1698,7 +1926,7 @@
       requestAnimationFrame(loop);
     })();
 
-    document.querySelectorAll('a, button, .work, .service-row, .process-step, .plan, .faq-q')
+    document.querySelectorAll('a, button, .work, .service-row, .process-step, .plan, .faq-q, .addon')
       .forEach(el => {
         el.addEventListener('mouseenter', () => {
           dot.classList.add('grow');
@@ -1745,22 +1973,6 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  /* ============ PRICING TOGGLE ============ */
-  const toggle = document.getElementById('billingToggle');
-  toggle.addEventListener('click', e => {
-    const btn = e.target.closest('button');
-    if (!btn) return;
-    toggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const mode = btn.dataset.mode;
-    document.querySelectorAll('.plan-price').forEach(price => {
-      const amt = price.querySelector('.amt');
-      const per = price.querySelector('.per');
-      amt.textContent = '$' + amt.dataset[mode];
-      per.textContent = per.dataset[mode];
-    });
-  });
 
   /* ============ FAQ ============ */
   document.querySelectorAll('.faq-item').forEach(item => {
