@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ByteBuilt® — Web design & development studio</title>
+<title>bytebuilt® — Web design & development studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -23,9 +23,10 @@
     --accent: #ff4a1c;
     --accent-2: #4f7cff;
     --purple: #8b5cf6;
-    --purple-2: #6d28d9;
     --lime: #c8ff3d;
     --green: #22c55e;
+    --teal: #3a8a8a;
+    --navy: #1a2b4a;
     --serif: 'Fraunces', Georgia, serif;
     --sans: 'Inter', system-ui, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -98,6 +99,58 @@
   .cur-dot.grow { background: var(--lime); box-shadow: 0 0 24px var(--lime); width: 8px; height: 8px; }
   @media (pointer: coarse) { .cur-dot, .cur-ring { display: none; } }
 
+  /* ============ LOGO ============ */
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .brand-logo:hover { color: var(--accent); }
+
+  .logo-cube {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    color: currentColor;
+    transition: color 0.3s;
+  }
+
+  .logo-cube .logo-sym {
+    stroke: var(--lime);
+    transition: stroke 0.3s;
+  }
+  .brand-logo:hover .logo-sym { stroke: var(--accent); }
+
+  .logo-wordmark {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.04em;
+    color: currentColor;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .logo-sparkle {
+    width: 11px;
+    height: 11px;
+    color: var(--lime);
+    margin-left: -3px;
+    margin-top: -10px;
+    align-self: flex-start;
+    transition: color 0.3s;
+    flex-shrink: 0;
+  }
+  .brand-logo:hover .logo-sparkle { color: var(--accent); }
+
+  /* Footer — logo më e madhe */
+  .brand-logo.lg .logo-cube { width: 44px; height: 44px; }
+  .brand-logo.lg .logo-wordmark { font-size: 2rem; }
+  .brand-logo.lg .logo-sparkle { width: 16px; height: 16px; margin-top: -16px; }
+
   /* ============ TICKER ============ */
   .ticker {
     background: #05060a;
@@ -143,18 +196,9 @@
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    padding: 18px 32px;
+    padding: 16px 32px;
     gap: 32px;
   }
-  .nav-brand {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: -0.03em;
-  }
-  .nav-brand sup { font-family: var(--mono); font-size: 0.6rem; color: var(--text-3); font-weight: 400; }
   .nav-menu {
     display: flex;
     gap: 32px;
@@ -192,11 +236,7 @@
   .burger span { width: 18px; height: 1.5px; background: var(--text); transition: all 0.3s; }
 
   /* ============ HERO ============ */
-  .hero {
-    padding: 80px 0 40px;
-    position: relative;
-    overflow: hidden;
-  }
+  .hero { padding: 80px 0 40px; position: relative; overflow: hidden; }
   .hero-glow {
     position: absolute;
     top: -20%; left: 50%;
@@ -214,7 +254,6 @@
     background: radial-gradient(ellipse, rgba(255,74,28,0.12), transparent 60%);
     filter: blur(60px);
   }
-
   .hero-meta {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -243,7 +282,6 @@
     animation: blink 2s infinite;
   }
   @keyframes blink { 50% { opacity: 0.4; } }
-
   .hero-title {
     font-family: var(--serif);
     font-weight: 400;
@@ -280,7 +318,6 @@
     transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.9s;
   }
   .hero-title.ready em::after { width: 100%; }
-
   .hero-bottom {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr;
@@ -298,7 +335,6 @@
     max-width: 500px;
   }
   .hero-copy strong { color: var(--text); font-weight: 500; }
-
   .hero-actions { display: flex; flex-direction: column; gap: 4px; }
   .action-btn {
     display: flex;
@@ -321,7 +357,6 @@
     border-color: var(--accent);
   }
   .action-btn:hover::after { transform: translateX(4px); }
-
   .hero-index {
     font-family: var(--mono);
     font-size: 0.72rem;
@@ -339,7 +374,7 @@
     font-family: var(--mono);
   }
 
-  /* ============ HERO ART ============ */
+  /* HERO ART */
   .hero-art {
     position: relative;
     margin-top: 56px;
@@ -399,7 +434,6 @@
     font-weight: 400;
   }
   .hero-art-col .big em { color: var(--accent); font-style: italic; }
-
   .hero-bar {
     position: absolute;
     bottom: 0; left: 0;
@@ -410,10 +444,7 @@
     animation: slideBar 8s ease-in-out infinite alternate;
     z-index: 4;
   }
-  @keyframes slideBar {
-    from { width: 15%; }
-    to { width: 65%; }
-  }
+  @keyframes slideBar { from { width: 15%; } to { width: 65%; } }
 
   /* ============ SEC HEAD ============ */
   .sec-head {
@@ -439,10 +470,7 @@
     letter-spacing: -0.03em;
     max-width: 900px;
   }
-  .sec-title em {
-    font-style: italic;
-    color: var(--accent);
-  }
+  .sec-title em { font-style: italic; color: var(--accent); }
 
   /* ============ SERVICES ============ */
   .services-table { border-top: 1px solid var(--line); }
@@ -460,23 +488,17 @@
   .service-row::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
+    left: 0; top: 0; bottom: 0;
     width: 0;
     background: linear-gradient(90deg, rgba(255,74,28,0.1), transparent);
     transition: width 0.5s var(--ease);
     pointer-events: none;
   }
-  .service-row:hover {
-    padding-left: 24px;
-    padding-right: 24px;
-  }
+  .service-row:hover { padding-left: 24px; padding-right: 24px; }
   .service-row:hover::before { width: 100%; }
   .service-row:hover .s-title { color: var(--accent); }
   .service-row:hover .s-arrow { color: var(--accent); transform: translateX(6px); }
   .service-row:hover .s-tag { border-color: var(--accent); color: var(--accent); }
-
   .s-num { font-family: var(--mono); font-size: 0.78rem; color: var(--text-3); }
   .s-title {
     font-family: var(--serif);
@@ -524,7 +546,6 @@
   .work:nth-child(2) { grid-column: span 5; }
   .work:nth-child(3) { grid-column: span 5; }
   .work:nth-child(4) { grid-column: span 7; }
-
   .work-thumb {
     aspect-ratio: 4/3;
     overflow: hidden;
@@ -537,10 +558,7 @@
     transition: transform 1s var(--ease), filter 0.6s;
     filter: saturate(0.7) contrast(1.05);
   }
-  .work:hover .work-thumb img {
-    transform: scale(1.06);
-    filter: saturate(1) contrast(1);
-  }
+  .work:hover .work-thumb img { transform: scale(1.06); filter: saturate(1) contrast(1); }
   .work-thumb::after {
     content: attr(data-index);
     position: absolute;
@@ -615,7 +633,6 @@
   .process-step:hover::before { width: 100%; }
   .process-step:hover .ps-num { color: var(--accent); }
   .process-step:hover .ps-title { color: var(--accent); }
-
   .ps-num {
     font-family: var(--mono);
     font-size: 3.2rem;
@@ -649,10 +666,7 @@
     max-width: 720px;
     margin: 0 auto 80px;
   }
-  .pricing-head .sec-num {
-    display: inline-block;
-    margin-bottom: 20px;
-  }
+  .pricing-head .sec-num { display: inline-block; margin-bottom: 20px; }
   .pricing-head h2 {
     font-family: var(--serif);
     font-weight: 400;
@@ -661,10 +675,7 @@
     letter-spacing: -0.03em;
     margin-bottom: 20px;
   }
-  .pricing-head h2 em {
-    font-style: italic;
-    color: var(--accent);
-  }
+  .pricing-head h2 em { font-style: italic; color: var(--accent); }
   .pricing-head p {
     color: var(--text-2);
     font-size: 1.05rem;
@@ -672,7 +683,6 @@
     max-width: 540px;
     margin: 0 auto;
   }
-
   .pricing-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -680,7 +690,6 @@
     max-width: 1200px;
     margin: 0 auto;
   }
-
   .plan {
     position: relative;
     background: linear-gradient(180deg, #131722, #0e111a);
@@ -691,21 +700,16 @@
     flex-direction: column;
     transition: all 0.4s var(--ease);
   }
-
   .plan:hover {
     transform: translateY(-4px);
     border-color: rgba(255, 255, 255, 0.16);
     box-shadow: 0 30px 60px -30px rgba(0,0,0,0.9);
   }
-
   .plan.featured {
     background: linear-gradient(180deg, #1e1b3a, #14122a);
     border-color: rgba(139, 92, 246, 0.5);
-    box-shadow:
-      0 30px 80px -30px rgba(139, 92, 246, 0.4),
-      0 0 0 1px rgba(139, 92, 246, 0.15);
+    box-shadow: 0 30px 80px -30px rgba(139, 92, 246, 0.4), 0 0 0 1px rgba(139, 92, 246, 0.15);
   }
-
   .plan.featured::before {
     content: '';
     position: absolute;
@@ -714,9 +718,7 @@
     background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.15), transparent 60%);
     pointer-events: none;
   }
-
   .plan > * { position: relative; z-index: 1; }
-
   .plan-badge {
     position: absolute;
     top: -14px;
@@ -732,7 +734,6 @@
     border-radius: 99px;
     box-shadow: 0 8px 24px -8px rgba(139, 92, 246, 0.6);
   }
-
   .plan-name {
     font-family: var(--serif);
     font-weight: 500;
@@ -741,9 +742,7 @@
     margin-bottom: 20px;
     color: var(--text);
   }
-
   .plan-name em { font-style: italic; color: var(--accent); }
-
   .plan-price {
     display: flex;
     align-items: baseline;
@@ -751,7 +750,6 @@
     margin-bottom: 8px;
     flex-wrap: wrap;
   }
-
   .plan-price .amount {
     font-family: var(--sans);
     font-size: clamp(2.2rem, 4vw, 2.8rem);
@@ -760,14 +758,12 @@
     color: var(--text);
     line-height: 1;
   }
-
   .plan-price .period {
     font-family: var(--sans);
     font-size: 0.9rem;
     color: var(--text-3);
     font-weight: 400;
   }
-
   .plan-desc {
     color: var(--text-2);
     font-size: 0.92rem;
@@ -776,7 +772,6 @@
     margin-bottom: 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
-
   .plan-features {
     list-style: none;
     display: flex;
@@ -786,7 +781,6 @@
     margin-bottom: 32px;
     font-size: 0.92rem;
   }
-
   .plan-features li {
     display: flex;
     align-items: flex-start;
@@ -794,7 +788,6 @@
     color: var(--text-2);
     line-height: 1.5;
   }
-
   .plan-features li .check {
     width: 16px;
     height: 16px;
@@ -803,17 +796,7 @@
     color: var(--green);
     stroke-width: 3;
   }
-
   .plan.featured .plan-features li .check { color: #a78bfa; }
-
-  .plan-features li.off {
-    color: var(--text-3);
-    text-decoration: line-through;
-    opacity: 0.6;
-  }
-
-  .plan-features li.off .check { color: var(--text-3); }
-
   .plan-cta {
     display: flex;
     align-items: center;
@@ -830,20 +813,17 @@
     color: var(--text);
     cursor: pointer;
   }
-
   .plan-cta:hover {
     background: rgba(255, 255, 255, 0.06);
     border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
   }
-
   .plan.featured .plan-cta {
     background: linear-gradient(135deg, var(--purple), var(--accent-2));
     border-color: transparent;
     color: white;
     box-shadow: 0 12px 30px -10px rgba(139, 92, 246, 0.5);
   }
-
   .plan.featured .plan-cta:hover {
     box-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.7);
     transform: translateY(-2px);
@@ -858,7 +838,6 @@
     border: 1px solid var(--line);
     border-radius: 20px;
   }
-
   .addons-head {
     display: flex;
     justify-content: space-between;
@@ -867,14 +846,12 @@
     gap: 20px;
     flex-wrap: wrap;
   }
-
   .addons-head h3 {
     font-family: var(--serif);
     font-weight: 400;
     font-size: 1.6rem;
     letter-spacing: -0.02em;
   }
-
   .addons-head p {
     font-family: var(--mono);
     font-size: 0.72rem;
@@ -882,13 +859,11 @@
     letter-spacing: 0.12em;
     color: var(--text-3);
   }
-
   .addons-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
-
   .addon {
     padding: 20px;
     background: rgba(255, 255, 255, 0.02);
@@ -896,19 +871,16 @@
     border-radius: 12px;
     transition: all 0.3s var(--ease);
   }
-
   .addon:hover {
     background: rgba(255, 255, 255, 0.04);
     border-color: var(--line-hi);
   }
-
   .addon-name {
     font-size: 0.92rem;
     font-weight: 500;
     color: var(--text);
     margin-bottom: 6px;
   }
-
   .addon-price {
     font-family: var(--mono);
     font-size: 0.82rem;
@@ -1150,10 +1122,7 @@
   }
 
   /* ============ FOOTER ============ */
-  footer {
-    padding: 72px 0 32px;
-    border-top: 1px solid var(--line);
-  }
+  footer { padding: 72px 0 32px; border-top: 1px solid var(--line); }
   .foot-grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1fr;
@@ -1161,15 +1130,13 @@
     padding-bottom: 56px;
     border-bottom: 1px solid var(--line);
   }
-  .foot-brand {
-    font-family: var(--serif);
-    font-size: 2.4rem;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    margin-bottom: 20px;
+  .foot-about {
+    color: var(--text-2);
+    font-size: 0.9rem;
+    max-width: 340px;
+    line-height: 1.65;
+    margin-top: 20px;
   }
-  .foot-brand sup { font-family: var(--mono); font-size: 0.7rem; color: var(--text-3); font-weight: 400; }
-  .foot-about { color: var(--text-2); font-size: 0.9rem; max-width: 340px; line-height: 1.65; }
   .foot-col h5 {
     font-family: var(--mono);
     font-size: 0.72rem;
@@ -1266,6 +1233,9 @@
     .foot-grid { grid-template-columns: 1fr; gap: 40px; }
     .s-title { font-size: 1.2rem; }
     .marquee-huge { font-size: 2.2rem; }
+    .brand-logo.lg .logo-cube { width: 34px; height: 34px; }
+    .brand-logo.lg .logo-wordmark { font-size: 1.6rem; }
+    .brand-logo.lg .logo-sparkle { width: 12px; height: 12px; margin-top: -12px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -1300,7 +1270,29 @@
 <!-- ============ NAV ============ -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#" class="nav-brand">ByteBuilt<sup>®</sup></a>
+    <a href="#" class="brand-logo" aria-label="bytebuilt home">
+      <svg class="logo-cube" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Hexagon outline -->
+        <path d="M 50 5 L 89 26 L 89 74 L 50 95 L 11 74 L 11 26 Z"
+              fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Y internal lines -->
+        <path d="M 50 50 L 11 26 M 50 50 L 89 26 M 50 50 L 50 95"
+              fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Top face > -->
+        <path class="logo-sym" d="M 43 22 L 56 29 L 43 36"
+              fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Left face < -->
+        <path class="logo-sym" d="M 32 59 L 22 66 L 32 73"
+              fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Right face > -->
+        <path class="logo-sym" d="M 63 59 L 73 66 L 63 73"
+              fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-wordmark">bytebuilt</span>
+      <svg class="logo-sparkle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 12 1 C 12 8 12 8 23 12 C 12 16 12 16 12 23 C 12 16 12 16 1 12 C 12 8 12 8 12 1 Z" fill="currentColor"/>
+      </svg>
+    </a>
     <ul class="nav-menu" id="navMenu">
       <li><a href="#services">Services<sup>06</sup></a></li>
       <li><a href="#work">Work<sup>12</sup></a></li>
@@ -1322,7 +1314,7 @@
 
   <div class="container">
     <div class="hero-meta reveal">
-      <div><span>Studio</span><strong>ByteBuilt®</strong></div>
+      <div><span>Studio</span><strong>bytebuilt®</strong></div>
       <div><span>Founded</span><strong>2018, Tirana</strong></div>
       <div><span>Practice</span><strong>Web · Brand · Product</strong></div>
       <div class="live"><span>Availability</span><strong>Q1 2025 — 4 slots</strong></div>
@@ -1336,7 +1328,7 @@
 
     <div class="hero-bottom">
       <p class="hero-copy reveal">
-        ByteBuilt is a small studio crafting considered digital work for brands
+        bytebuilt is a small studio crafting considered digital work for brands
         that care about the craft. <strong>No templates, no shortcuts, no juniors.</strong>
         Just senior designers and engineers, doing the work properly.
       </p>
@@ -1571,171 +1563,80 @@
 
     <div class="pricing-grid reveal">
 
-      <!-- Landing -->
       <div class="plan">
-        <h3 class="plan-name">Landing <em>Page</em></h3>
-        <div class="plan-price">
-          <span class="amount">€200</span>
-          <span class="period">one-time</span>
-        </div>
-        <p class="plan-desc">For small businesses or promotions that need a single, clean page online — fast.</p>
-        <ul class="plan-features">
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Single-page website
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Modern custom design
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Mobile responsive
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Contact form
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Google Maps
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Basic SEO setup
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Hosting + SSL setup
-          </li>
-        </ul>
-        <a href="#contact" class="plan-cta">Get Started</a>
-      </div>
-
-      <!-- Business (Featured) -->
-      <div class="plan featured">
-        <div class="plan-badge">Most Popular</div>
         <h3 class="plan-name">Web <em>Business</em></h3>
         <div class="plan-price">
-          <span class="amount">€400</span>
+          <span class="amount">€399</span>
           <span class="period">one-time</span>
         </div>
-        <p class="plan-desc">The complete business site. Multiple pages, brand identity, and everything to look professional online.</p>
+        <p class="plan-desc">Perfect for small businesses that need a professional presence online — fast.</p>
         <ul class="plan-features">
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Up to 8 custom pages
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Custom design + branding
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Mobile responsive
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Business logo design
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            2+ webmail addresses
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            SEO + advanced setup
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            30 days of free support
-          </li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Standard custom design</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Mobile responsive</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Slider Revolution</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Business logo design</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 2+ webmail addresses</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 1 GB storage space</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> SEO + 10+ pages</li>
         </ul>
         <a href="#contact" class="plan-cta">Get Started</a>
       </div>
 
-      <!-- E-Commerce -->
-      <div class="plan">
+      <div class="plan featured">
+        <div class="plan-badge">Most Flexible</div>
         <h3 class="plan-name">E-<em>Commerce</em></h3>
         <div class="plan-price">
-          <span class="amount">€500</span>
+          <span class="amount">€599–€1,199</span>
           <span class="period">one-time</span>
         </div>
-        <p class="plan-desc">Full online store — products, payments, orders, and everything you need to sell online.</p>
+        <p class="plan-desc">Full online store — products, payments, orders, and everything needed to sell online.</p>
         <ul class="plan-features">
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Full e-commerce store
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Up to 30 products included
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Payment integration
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Order management
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Business logo design
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            SEO + advanced setup
-          </li>
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            30 days of free support
-          </li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> E-commerce design</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Multiple products</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Mobile responsive</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Slider Revolution</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Business logo design</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 2+ webmail addresses</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> SEO + 1 GB storage</li>
         </ul>
         <a href="#contact" class="plan-cta">Get Started</a>
+      </div>
+
+      <div class="plan">
+        <h3 class="plan-name">Pro <em>Custom</em></h3>
+        <div class="plan-price">
+          <span class="amount">€1,499+</span>
+          <span class="period">one-time</span>
+        </div>
+        <p class="plan-desc">For businesses that need something bigger — portals, dashboards, multi-language, integrations.</p>
+        <ul class="plan-features">
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Unlimited pages</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Admin dashboard</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Multi-language support</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> API integrations</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Advanced SEO</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Priority support</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Dedicated project manager</li>
+        </ul>
+        <a href="#contact" class="plan-cta">Get a Quote</a>
       </div>
 
     </div>
 
-    <!-- Add-ons -->
     <div class="addons reveal">
       <div class="addons-head">
         <h3>Add-ons & <em style="font-style: italic; color: var(--accent);">extras</em></h3>
         <p>Mix & match with any package</p>
       </div>
       <div class="addons-grid">
-        <div class="addon">
-          <div class="addon-name">Extra page</div>
-          <div class="addon-price">€30 each</div>
-        </div>
-        <div class="addon">
-          <div class="addon-name">Extra product</div>
-          <div class="addon-price">€2 each</div>
-        </div>
-        <div class="addon">
-          <div class="addon-name">Blog setup + 3 posts</div>
-          <div class="addon-price">€100</div>
-        </div>
-        <div class="addon">
-          <div class="addon-name">Google Maps integration</div>
-          <div class="addon-price">€20</div>
-        </div>
-        <div class="addon">
-          <div class="addon-name">WhatsApp / chat widget</div>
-          <div class="addon-price">€40</div>
-        </div>
-        <div class="addon">
-          <div class="addon-name">Booking / reservation system</div>
-          <div class="addon-price">€150+</div>
-        </div>
-        <div class="addon">
-          <div class="addon-name">Monthly maintenance</div>
-          <div class="addon-price">from €20/mo</div>
-        </div>
-        <div class="addon">
-          <div class="addon-name">Copywriting</div>
-          <div class="addon-price">€40 / page</div>
-        </div>
+        <div class="addon"><div class="addon-name">Extra page</div><div class="addon-price">€40 each</div></div>
+        <div class="addon"><div class="addon-name">Extra product</div><div class="addon-price">€3 each</div></div>
+        <div class="addon"><div class="addon-name">Blog setup + 3 posts</div><div class="addon-price">€150</div></div>
+        <div class="addon"><div class="addon-name">Google Maps integration</div><div class="addon-price">€30</div></div>
+        <div class="addon"><div class="addon-name">WhatsApp / chat widget</div><div class="addon-price">€50</div></div>
+        <div class="addon"><div class="addon-name">Booking / reservation system</div><div class="addon-price">€250+</div></div>
+        <div class="addon"><div class="addon-name">Monthly maintenance</div><div class="addon-price">from €30/mo</div></div>
+        <div class="addon"><div class="addon-name">Copywriting</div><div class="addon-price">€60 / page</div></div>
       </div>
     </div>
   </div>
@@ -1751,7 +1652,7 @@
 
     <div class="quotes">
       <div class="quote-main reveal">
-        ByteBuilt shipped our new site in three weeks and conversion is up 40%. They pushed back on ideas that weren't working — which we appreciated more than the compliments.
+        bytebuilt shipped our new site in three weeks and conversion is up 40%. They pushed back on ideas that weren't working — which we appreciated more than the compliments.
         <div class="quote-author">
           <div class="quote-avatar">SM</div>
           <div>
@@ -1763,7 +1664,7 @@
 
       <div class="quote-side reveal">
         <div class="quote-side-item">
-          <p>I've worked with three agencies. ByteBuilt is the first that felt like a partner instead of a vendor.</p>
+          <p>I've worked with three agencies. bytebuilt is the first that felt like a partner instead of a vendor.</p>
           <strong>Marcus Chen, Pulse Analytics</strong>
         </div>
         <div class="quote-side-item">
@@ -1794,7 +1695,7 @@
           <span class="t">How long does a project usually take?</span>
           <span class="sign">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">A Landing Page takes 3–5 days. Web Business takes 1–2 weeks. E-commerce runs 2–3 weeks. We'll give you a real timeline after the intro call, not a sales estimate.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">A typical Web Business site takes 1–2 weeks from kickoff to launch. E-commerce runs 2–4 weeks. Pro Custom depends on the scope — usually 4+ weeks. We'll give you a real timeline after the intro call, not a sales estimate.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">
@@ -1810,7 +1711,7 @@
           <span class="t">Do you offer ongoing support?</span>
           <span class="sign">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Yes — monthly retainers from €20/month cover updates, monitoring, content changes, and small improvements. We also offer ad-hoc support if you'd prefer.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — monthly retainers from €30/month cover updates, monitoring, content changes, and small improvements. We also offer ad-hoc support if you'd prefer.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">
@@ -1826,7 +1727,7 @@
           <span class="t">How do payments work?</span>
           <span class="sign">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Simple: 50% deposit to start, 50% on delivery. Bank transfer, PayPal, or card — whichever works for you.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Simple: 50% deposit to start, 50% on delivery. For larger projects we split into milestones. Bank transfer, PayPal, or card — whichever works for you.</div></div>
       </div>
     </div>
   </div>
@@ -1857,7 +1758,24 @@
   <div class="container">
     <div class="foot-grid">
       <div>
-        <div class="foot-brand">ByteBuilt<sup>®</sup></div>
+        <a href="#" class="brand-logo lg" aria-label="bytebuilt home">
+          <svg class="logo-cube" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M 50 5 L 89 26 L 89 74 L 50 95 L 11 74 L 11 26 Z"
+                  fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M 50 50 L 11 26 M 50 50 L 89 26 M 50 50 L 50 95"
+                  fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+            <path class="logo-sym" d="M 43 22 L 56 29 L 43 36"
+                  fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="logo-sym" d="M 32 59 L 22 66 L 32 73"
+                  fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="logo-sym" d="M 63 59 L 73 66 L 63 73"
+                  fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="logo-wordmark">bytebuilt</span>
+          <svg class="logo-sparkle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M 12 1 C 12 8 12 8 23 12 C 12 16 12 16 12 23 C 12 16 12 16 1 12 C 12 8 12 8 12 1 Z" fill="currentColor"/>
+          </svg>
+        </a>
         <p class="foot-about">A small studio crafting considered digital work. Founded 2018, Tirana. Working remotely with clients worldwide.</p>
       </div>
       <div class="foot-col">
@@ -1889,7 +1807,7 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2025 ByteBuilt® — All rights reserved.</span>
+      <span>© 2025 bytebuilt® — All rights reserved.</span>
       <div class="foot-bottom-links">
         <a href="https://instagram.com/bytebulit.comp" target="_blank" rel="noopener">Instagram</a>
         <a href="#">Privacy</a>
@@ -1903,7 +1821,6 @@
 (function() {
   'use strict';
 
-  /* ============ CUSTOM CURSOR ============ */
   const dot = document.getElementById('curDot');
   const ring = document.getElementById('curRing');
   const isTouch = matchMedia('(pointer: coarse)').matches;
@@ -1939,18 +1856,15 @@
       });
   }
 
-  /* ============ HERO TITLE REVEAL ============ */
   window.addEventListener('load', () => {
     setTimeout(() => document.getElementById('heroTitle').classList.add('ready'), 200);
   });
 
-  /* ============ NAV SCROLL ============ */
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', scrollY > 20);
   }, { passive: true });
 
-  /* ============ MOBILE MENU ============ */
   const burger = document.getElementById('burger');
   const navMenu = document.getElementById('navMenu');
   burger.addEventListener('click', () => {
@@ -1962,7 +1876,6 @@
     navMenu.classList.remove('open');
   }));
 
-  /* ============ REVEAL ON SCROLL ============ */
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1971,10 +1884,8 @@
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  /* ============ FAQ ============ */
   document.querySelectorAll('.faq-item').forEach(item => {
     item.querySelector('.faq-q').addEventListener('click', () => {
       const open = item.classList.contains('open');
@@ -1983,11 +1894,9 @@
     });
   });
 
-  /* ============ SUBTLE HERO TILT ============ */
   const heroArt = document.getElementById('heroArt');
   const heroBar = document.getElementById('heroBar');
   const hero = document.querySelector('.hero');
-
   if (!isTouch && hero && heroArt) {
     hero.addEventListener('mousemove', e => {
       const rect = heroArt.getBoundingClientRect();
@@ -2005,7 +1914,6 @@
     });
   }
 
-  /* ============ SMOOTH ANCHORS ============ */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const id = a.getAttribute('href');
@@ -2017,8 +1925,8 @@
     });
   });
 
-  console.log('%cByteBuilt® — Websites for businesses that refuse to be forgettable.',
-    'color:#ff4a1c;font-weight:700;font-size:13px;');
+  console.log('%cbytebuilt® — Websites for businesses that refuse to be forgettable.',
+    'color:#ff4a1c;font-weight:800;font-size:13px;');
 })();
 </script>
 </body>
