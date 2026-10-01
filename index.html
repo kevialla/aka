@@ -25,8 +25,9 @@
     --purple: #8b5cf6;
     --lime: #c8ff3d;
     --green: #22c55e;
-    --teal: #3a8a8a;
     --navy: #1a2b4a;
+    --navy-light: #24365a;
+    --teal: #3a8a8a;
     --serif: 'Fraunces', Georgia, serif;
     --sans: 'Inter', system-ui, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -99,57 +100,61 @@
   .cur-dot.grow { background: var(--lime); box-shadow: 0 0 24px var(--lime); width: 8px; height: 8px; }
   @media (pointer: coarse) { .cur-dot, .cur-ring { display: none; } }
 
-  /* ============ LOGO ============ */
+  /* ============================================================
+     LOGO — identike me origjinalin
+     ============================================================ */
   .brand-logo {
     display: inline-flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 10px;
-    color: var(--text);
+    color: #eef0f6;
     text-decoration: none;
-    transition: color 0.3s;
+    transition: opacity 0.3s;
   }
-  .brand-logo:hover { color: var(--accent); }
+  .brand-logo:hover { opacity: 0.85; }
 
   .logo-cube {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     flex-shrink: 0;
-    color: currentColor;
-    transition: color 0.3s;
+    color: #dfe6f0;
+    margin-bottom: 2px;
   }
 
-  .logo-cube .logo-sym {
-    stroke: var(--lime);
-    transition: stroke 0.3s;
+  .logo-cube .sym {
+    stroke: var(--teal);
   }
-  .brand-logo:hover .logo-sym { stroke: var(--accent); }
+
+  .logo-wordmark-wrap {
+    display: inline-flex;
+    align-items: flex-start;
+    position: relative;
+    line-height: 1;
+  }
 
   .logo-wordmark {
     font-family: var(--sans);
     font-weight: 800;
-    font-size: 1.15rem;
-    letter-spacing: -0.04em;
-    color: currentColor;
-    transition: color 0.3s;
-    position: relative;
+    font-size: 1.35rem;
+    letter-spacing: -0.045em;
+    color: #eef0f6;
+    line-height: 1;
   }
 
-  .logo-sparkle {
-    width: 11px;
-    height: 11px;
-    color: var(--lime);
-    margin-left: -3px;
-    margin-top: -10px;
-    align-self: flex-start;
-    transition: color 0.3s;
+  /* Ylli portokalli — i pozicionuar si në foto: poshtë-djathtas, ngjitur me "t" */
+  .logo-star {
+    width: 9px;
+    height: 9px;
+    color: var(--accent);
+    margin-left: 3px;
+    margin-top: 12px;
     flex-shrink: 0;
   }
-  .brand-logo:hover .logo-sparkle { color: var(--accent); }
 
   /* Footer — logo më e madhe */
-  .brand-logo.lg .logo-cube { width: 44px; height: 44px; }
-  .brand-logo.lg .logo-wordmark { font-size: 2rem; }
-  .brand-logo.lg .logo-sparkle { width: 16px; height: 16px; margin-top: -16px; }
+  .brand-logo.lg .logo-cube { width: 48px; height: 48px; margin-bottom: 4px; }
+  .brand-logo.lg .logo-wordmark { font-size: 2.1rem; }
+  .brand-logo.lg .logo-star { width: 13px; height: 13px; margin-left: 4px; margin-top: 20px; }
 
   /* ============ TICKER ============ */
   .ticker {
@@ -1233,9 +1238,9 @@
     .foot-grid { grid-template-columns: 1fr; gap: 40px; }
     .s-title { font-size: 1.2rem; }
     .marquee-huge { font-size: 2.2rem; }
-    .brand-logo.lg .logo-cube { width: 34px; height: 34px; }
-    .brand-logo.lg .logo-wordmark { font-size: 1.6rem; }
-    .brand-logo.lg .logo-sparkle { width: 12px; height: 12px; margin-top: -12px; }
+    .brand-logo.lg .logo-cube { width: 38px; height: 38px; }
+    .brand-logo.lg .logo-wordmark { font-size: 1.7rem; }
+    .brand-logo.lg .logo-star { width: 11px; height: 11px; margin-top: 16px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -1271,27 +1276,32 @@
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="#" class="brand-logo" aria-label="bytebuilt home">
+      <!-- Kubi izometrik — identik me foton -->
       <svg class="logo-cube" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Hexagon outline -->
-        <path d="M 50 5 L 89 26 L 89 74 L 50 95 L 11 74 L 11 26 Z"
-              fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-        <!-- Y internal lines -->
-        <path d="M 50 50 L 11 26 M 50 50 L 89 26 M 50 50 L 50 95"
-              fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-        <!-- Top face > -->
-        <path class="logo-sym" d="M 43 22 L 56 29 L 43 36"
-              fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Left face < -->
-        <path class="logo-sym" d="M 32 59 L 22 66 L 32 73"
-              fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Right face > -->
-        <path class="logo-sym" d="M 63 59 L 73 66 L 63 73"
-              fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Kontura hexagon -->
+        <path d="M 50 6 L 88 28 L 88 72 L 50 94 L 12 72 L 12 28 Z"
+              fill="none" stroke="#1a2b4a" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Vija "Y" e brendshme -->
+        <path d="M 50 50 L 12 28 M 50 50 L 88 28 M 50 50 L 50 94"
+              fill="none" stroke="#1a2b4a" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Simboli > në faqen e sipërme -->
+        <path d="M 42 22 L 58 30 L 42 38"
+              fill="none" stroke="#3a8a8a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Simboli < në faqen e majtë -->
+        <path d="M 32 58 L 20 66 L 32 74"
+              fill="none" stroke="#3a8a8a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Simboli > në faqen e djathtë -->
+        <path d="M 64 58 L 76 66 L 64 74"
+              fill="none" stroke="#3a8a8a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <span class="logo-wordmark">bytebuilt</span>
-      <svg class="logo-sparkle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M 12 1 C 12 8 12 8 23 12 C 12 16 12 16 12 23 C 12 16 12 16 1 12 C 12 8 12 8 12 1 Z" fill="currentColor"/>
-      </svg>
+
+      <!-- Wordmark + yll portokalli -->
+      <span class="logo-wordmark-wrap">
+        <span class="logo-wordmark">bytebuilt</span>
+        <svg class="logo-star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 12 0 C 12 7.5 12 7.5 24 12 C 12 16.5 12 16.5 12 24 C 12 16.5 12 16.5 0 12 C 12 7.5 12 7.5 12 0 Z" fill="#ff4a1c"/>
+        </svg>
+      </span>
     </a>
     <ul class="nav-menu" id="navMenu">
       <li><a href="#services">Services<sup>06</sup></a></li>
@@ -1760,21 +1770,23 @@
       <div>
         <a href="#" class="brand-logo lg" aria-label="bytebuilt home">
           <svg class="logo-cube" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M 50 5 L 89 26 L 89 74 L 50 95 L 11 74 L 11 26 Z"
-                  fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-            <path d="M 50 50 L 11 26 M 50 50 L 89 26 M 50 50 L 50 95"
-                  fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-            <path class="logo-sym" d="M 43 22 L 56 29 L 43 36"
-                  fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path class="logo-sym" d="M 32 59 L 22 66 L 32 73"
-                  fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path class="logo-sym" d="M 63 59 L 73 66 L 63 73"
-                  fill="none" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 50 6 L 88 28 L 88 72 L 50 94 L 12 72 L 12 28 Z"
+                  fill="none" stroke="#1a2b4a" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M 50 50 L 12 28 M 50 50 L 88 28 M 50 50 L 50 94"
+                  fill="none" stroke="#1a2b4a" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M 42 22 L 58 30 L 42 38"
+                  fill="none" stroke="#3a8a8a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 32 58 L 20 66 L 32 74"
+                  fill="none" stroke="#3a8a8a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 64 58 L 76 66 L 64 74"
+                  fill="none" stroke="#3a8a8a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <span class="logo-wordmark">bytebuilt</span>
-          <svg class="logo-sparkle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M 12 1 C 12 8 12 8 23 12 C 12 16 12 16 12 23 C 12 16 12 16 1 12 C 12 8 12 8 12 1 Z" fill="currentColor"/>
-          </svg>
+          <span class="logo-wordmark-wrap">
+            <span class="logo-wordmark">bytebuilt</span>
+            <svg class="logo-star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M 12 0 C 12 7.5 12 7.5 24 12 C 12 16.5 12 16.5 12 24 C 12 16.5 12 16.5 0 12 C 12 7.5 12 7.5 12 0 Z" fill="#ff4a1c"/>
+            </svg>
+          </span>
         </a>
         <p class="foot-about">A small studio crafting considered digital work. Founded 2018, Tirana. Working remotely with clients worldwide.</p>
       </div>
