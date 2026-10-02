@@ -4,16 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0a0b0f">
-<meta name="description" content="ByteBuilt creates custom, responsive websites for businesses, creators, and brands. Web design and development from Tirana, Albania.">
-<meta name="robots" content="index, follow">
-<meta property="og:title" content="bytebuilt® — Custom web design & development">
-<meta property="og:description" content="Custom websites for businesses, creators, and brands.">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<title>bytebuilt® — Custom Web Design & Development</title>
+<meta name="description" content="bytebuilt — Web design & development studio. Professional websites from €200.">
+<title>bytebuilt® — Web design & development studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -29,12 +24,14 @@
     --text-3: #646b80;
     --accent: #ff4a1c;
     --accent-2: #4f7cff;
+    --purple: #8b5cf6;
     --lime: #c8ff3d;
     --green: #22c55e;
     --serif: 'Fraunces', Georgia, serif;
     --sans: 'Inter', system-ui, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, monospace;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    /* Mobile touch target minimum */
     --tap-target: 48px;
   }
 
@@ -44,12 +41,18 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--sans);
-    font-size: 16px;
+    font-size: 16px; /* 16px parandalon zoom-in automatik në iOS */
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
     overflow-x: hidden;
+    cursor: none;
+    /* Mbron nga notch / home bar në iPhone */
     padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  @media (pointer: coarse) {
+    body { cursor: auto; }
   }
 
   ::selection { background: var(--accent); color: var(--text); }
@@ -57,8 +60,51 @@
   button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; -webkit-tap-highlight-color: transparent; }
   img { max-width: 100%; display: block; }
 
-  .container { max-width: 1440px; margin: 0 auto; padding: 0 24px; }
-  section { padding: 72px 0; position: relative; }
+  .container { max-width: 1440px; margin: 0 auto; padding: 0 20px; }
+  section { padding: 80px 0; position: relative; }
+
+  /* ============ NOISE OVERLAY ============ */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  }
+
+  /* ============ CUSTOM CURSOR (vetëm desktop) ============ */
+  .cur-dot, .cur-ring {
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform;
+    transform: translate3d(-50%, -50%, 0);
+    transition: width .3s var(--ease), height .3s var(--ease),
+                background .3s, border-color .3s, opacity .3s;
+  }
+  .cur-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--accent);
+  }
+  .cur-ring {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+  }
+  .cur-ring.grow {
+    width: 76px; height: 76px;
+    border-color: var(--accent);
+    background: rgba(255, 74, 28, 0.06);
+    box-shadow: 0 0 40px rgba(255, 74, 28, 0.5);
+  }
+  .cur-dot.grow { background: var(--lime); box-shadow: 0 0 24px var(--lime); width: 8px; height: 8px; }
+  @media (pointer: coarse) { .cur-dot, .cur-ring { display: none !important; } }
 
   /* ============ LOGO ============ */
   .brand-logo {
@@ -66,6 +112,7 @@
     align-items: center;
     gap: 10px;
     color: #eef0f6;
+    text-decoration: none;
   }
   .logo-cube { width: 32px; height: 32px; flex-shrink: 0; display: block; }
   .logo-wordmark-wrap { display: inline-flex; align-items: center; line-height: 1; }
@@ -82,21 +129,48 @@
   .brand-logo.lg .logo-wordmark { font-size: 2.2rem; }
   .brand-logo.lg .logo-star { width: 15px; height: 15px; margin-bottom: 24px; margin-left: 4px; }
 
+  /* ============ TICKER ============ */
+  .ticker {
+    background: #05060a;
+    color: var(--text-2);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 0;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    z-index: 10;
+  }
+  .ticker-track {
+    display: flex;
+    gap: 40px;
+    white-space: nowrap;
+    animation: tick 45s linear infinite;
+    width: max-content;
+  }
+  .ticker-track span { display: flex; align-items: center; gap: 40px; }
+  .ticker-track span::after { content: '◆'; color: var(--accent); }
+  @keyframes tick { to { transform: translateX(-50%); } }
+
   /* ============ NAV ============ */
   .nav {
     position: sticky;
     top: 0;
     z-index: 900;
-    background: rgba(10, 11, 15, 0.9);
+    background: rgba(10, 11, 15, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--line);
+    transition: background 0.3s;
   }
+  .nav.scrolled { background: rgba(10, 11, 15, 0.97); }
   .nav-inner {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    padding: 14px 24px;
+    padding: 14px 20px;
     gap: 20px;
   }
   .nav-menu {
@@ -111,6 +185,7 @@
   }
   .nav-menu a { padding: 8px 0; transition: color 0.2s; }
   .nav-menu a:hover { color: var(--accent); }
+  .nav-menu a sup { font-size: 0.55rem; color: var(--text-3); margin-left: 2px; }
   .nav-actions {
     display: flex;
     justify-content: flex-end;
@@ -143,6 +218,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 8px;
+    transition: background 0.2s;
   }
   .burger:active { background: rgba(255,255,255,0.06); }
   .burger span { width: 20px; height: 2px; background: var(--text); transition: all 0.3s; border-radius: 2px; }
@@ -150,7 +226,7 @@
   .burger.open span:nth-child(2) { opacity: 0; }
   .burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-  /* ============ MOBILE MENU ============ */
+  /* ============ MOBILE MENU — fullscreen ============ */
   .mobile-menu {
     position: fixed;
     inset: 0;
@@ -170,14 +246,14 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
     flex: 1;
   }
   .mobile-menu a {
     display: block;
-    padding: 18px 0;
+    padding: 20px 0;
     font-family: var(--serif);
-    font-size: 1.9rem;
+    font-size: 2rem;
     font-weight: 400;
     letter-spacing: -0.02em;
     color: var(--text);
@@ -198,21 +274,22 @@
     font-size: 1rem;
     font-weight: 700;
     margin-top: 20px;
+    border: none;
     letter-spacing: 0.02em;
     min-height: 60px;
     width: 100%;
   }
-  .mobile-contact {
-    margin-top: 20px;
-    padding-top: 20px;
+  .mobile-menu .mobile-contact {
+    margin-top: 24px;
+    padding-top: 24px;
     border-top: 1px solid var(--line);
     font-family: var(--mono);
     font-size: 0.82rem;
     color: var(--text-3);
     text-align: center;
-    line-height: 1.9;
+    line-height: 1.8;
   }
-  .mobile-contact a {
+  .mobile-menu .mobile-contact a {
     font-family: var(--mono);
     font-size: 0.82rem;
     padding: 0;
@@ -222,7 +299,24 @@
   }
 
   /* ============ HERO ============ */
-  .hero { padding: 56px 0 32px; position: relative; overflow: hidden; }
+  .hero { padding: 60px 0 40px; position: relative; overflow: hidden; }
+  .hero-glow {
+    position: absolute;
+    top: -20%; left: 50%;
+    transform: translateX(-50%);
+    width: 1200px; height: 800px;
+    background: radial-gradient(ellipse at center, rgba(79,124,255,0.15), transparent 60%);
+    pointer-events: none;
+    filter: blur(40px);
+  }
+  .hero-glow::after {
+    content: '';
+    position: absolute;
+    bottom: -40%; right: -10%;
+    width: 700px; height: 700px;
+    background: radial-gradient(ellipse, rgba(255,74,28,0.12), transparent 60%);
+    filter: blur(60px);
+  }
   .hero-meta {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -235,6 +329,8 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--text-3);
+    position: relative;
+    z-index: 1;
   }
   .hero-meta div { display: flex; flex-direction: column; gap: 4px; }
   .hero-meta div strong { font-weight: 500; color: var(--text); }
@@ -246,29 +342,46 @@
     border-radius: 50%;
     margin-right: 8px;
     box-shadow: 0 0 12px var(--lime);
+    animation: blink 2s infinite;
   }
+  @keyframes blink { 50% { opacity: 0.4; } }
 
   .hero-title {
     font-family: var(--serif);
     font-weight: 400;
-    font-size: clamp(2.5rem, 12vw, 8rem);
-    line-height: 0.95;
+    font-size: clamp(2.5rem, 12vw, 10rem);
+    line-height: 0.92;
     letter-spacing: -0.04em;
     margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
   }
   .hero-title .line { display: block; overflow: hidden; }
   .hero-title .line > span {
     display: inline-block;
     transform: translateY(100%);
-    transition: transform 0.9s var(--ease);
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .hero-title.ready .line > span { transform: translateY(0); }
-  .hero-title .line:nth-child(2) > span { transition-delay: 0.08s; }
-  .hero-title .line:nth-child(3) > span { transition-delay: 0.16s; }
+  .hero-title .line:nth-child(2) > span { transition-delay: 0.1s; }
+  .hero-title .line:nth-child(3) > span { transition-delay: 0.2s; }
   .hero-title em {
     font-style: italic;
     color: var(--accent);
+    position: relative;
+    display: inline-block;
   }
+  .hero-title em::after {
+    content: '';
+    position: absolute;
+    bottom: 0.08em;
+    left: 0;
+    width: 0;
+    height: 0.06em;
+    background: var(--accent);
+    transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.9s;
+  }
+  .hero-title.ready em::after { width: 100%; }
 
   .hero-bottom {
     display: grid;
@@ -277,6 +390,8 @@
     padding-top: 32px;
     border-top: 1px solid var(--line);
     align-items: end;
+    position: relative;
+    z-index: 1;
   }
   .hero-copy {
     font-size: 1.05rem;
@@ -291,7 +406,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 0;
+    padding: 18px 0;
     border-bottom: 1px solid var(--line);
     font-family: var(--mono);
     font-size: 0.85rem;
@@ -302,14 +417,12 @@
     min-height: var(--tap-target);
   }
   .action-btn::after { content: '→'; transition: transform 0.3s; }
-  .action-btn:hover,
   .action-btn:active {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
     color: var(--accent);
     border-color: var(--accent);
   }
-  .action-btn:hover::after,
   .action-btn:active::after { transform: translateX(4px); }
 
   .hero-index {
@@ -336,10 +449,11 @@
     aspect-ratio: 21/9;
     background: linear-gradient(180deg, var(--surface-2), var(--surface));
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr;
+    z-index: 1;
   }
   .hero-art::before {
     content: '';
@@ -351,6 +465,15 @@
     background-size: 48px 48px;
     z-index: 2;
     pointer-events: none;
+  }
+  .hero-art::after {
+    content: '';
+    position: absolute;
+    top: -30%; right: 20%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,74,28,0.2), transparent 60%);
+    filter: blur(40px);
+    z-index: 0;
   }
   .hero-art-col {
     border-right: 1px solid var(--line);
@@ -372,7 +495,7 @@
   .hero-art-col > span:last-child { color: var(--text-3); }
   .hero-art-col .big {
     font-family: var(--serif);
-    font-size: clamp(1.5rem, 3.6vw, 3rem);
+    font-size: clamp(1.5rem, 3.6vw, 3.2rem);
     text-transform: none;
     letter-spacing: -0.02em;
     color: var(--text);
@@ -380,6 +503,17 @@
     font-weight: 400;
   }
   .hero-art-col .big em { color: var(--accent); font-style: italic; }
+  .hero-bar {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 2px;
+    width: 30%;
+    background: var(--accent);
+    box-shadow: 0 0 24px var(--accent);
+    animation: slideBar 8s ease-in-out infinite alternate;
+    z-index: 4;
+  }
+  @keyframes slideBar { from { width: 15%; } to { width: 65%; } }
 
   /* ============ SEC HEAD ============ */
   .sec-head {
@@ -400,8 +534,8 @@
   .sec-title {
     font-family: var(--serif);
     font-weight: 400;
-    font-size: clamp(1.8rem, 5vw, 3.4rem);
-    line-height: 1.08;
+    font-size: clamp(1.8rem, 5vw, 3.8rem);
+    line-height: 1.05;
     letter-spacing: -0.03em;
     max-width: 900px;
   }
@@ -416,12 +550,24 @@
     padding: 24px 0;
     border-bottom: 1px solid var(--line);
     align-items: center;
-    transition: padding 0.3s;
+    transition: background 0.4s var(--ease), padding 0.4s var(--ease);
+    position: relative;
     cursor: pointer;
   }
+  .service-row::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: linear-gradient(90deg, rgba(255,74,28,0.1), transparent);
+    transition: width 0.5s var(--ease);
+    pointer-events: none;
+  }
   .service-row:hover { padding-left: 16px; padding-right: 16px; }
+  .service-row:hover::before { width: 100%; }
   .service-row:hover .s-title { color: var(--accent); }
   .service-row:hover .s-arrow { color: var(--accent); transform: translateX(6px); }
+  .service-row:hover .s-tag { border-color: var(--accent); color: var(--accent); }
   .s-num { font-family: var(--mono); font-size: 0.75rem; color: var(--text-3); }
   .s-title {
     font-family: var(--serif);
@@ -443,7 +589,6 @@
     transition: all 0.3s;
     white-space: nowrap;
   }
-  .service-row:hover .s-tag { border-color: var(--accent); color: var(--accent); }
   .s-arrow { font-family: var(--mono); font-size: 1.1rem; color: var(--text-3); transition: all 0.3s; }
 
   /* ============ WORK ============ */
@@ -458,15 +603,15 @@
     overflow: hidden;
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: transform 0.4s var(--ease), border-color 0.3s;
+    transition: all 0.5s var(--ease);
   }
   .work:hover {
     transform: translateY(-4px);
     border-color: var(--line-hi);
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.9), 0 0 40px -20px rgba(255,74,28,0.3);
   }
-  .project-card { width: 100%; text-align: left; color: inherit; font: inherit; }
   .work:nth-child(1) { grid-column: span 7; }
   .work:nth-child(2) { grid-column: span 5; }
   .work:nth-child(3) { grid-column: span 5; }
@@ -480,10 +625,10 @@
   .work-thumb img {
     width: 100%; height: 100%;
     object-fit: cover;
-    transition: transform 0.8s var(--ease), filter 0.5s;
-    filter: saturate(0.75) contrast(1.05);
+    transition: transform 1s var(--ease), filter 0.6s;
+    filter: saturate(0.7) contrast(1.05);
   }
-  .work:hover .work-thumb img { transform: scale(1.04); filter: saturate(1) contrast(1); }
+  .work:hover .work-thumb img { transform: scale(1.06); filter: saturate(1) contrast(1); }
   .work-thumb::after {
     content: attr(data-index);
     position: absolute;
@@ -491,7 +636,7 @@
     font-family: var(--mono);
     font-size: 0.7rem;
     color: var(--text);
-    background: rgba(10, 11, 15, 0.75);
+    background: rgba(10, 11, 15, 0.7);
     backdrop-filter: blur(10px);
     border: 1px solid var(--line);
     padding: 4px 10px;
@@ -529,7 +674,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
   }
   .process-step {
@@ -540,14 +685,31 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
   }
   .process-step:last-child { border-right: none; }
+  .process-step::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--accent);
+    box-shadow: 0 0 24px var(--accent);
+    transition: width 0.6s var(--ease);
+  }
+  .process-step:hover { background: rgba(255,74,28,0.03); }
+  .process-step:hover::before { width: 100%; }
+  .process-step:hover .ps-num { color: var(--accent); }
+  .process-step:hover .ps-title { color: var(--accent); }
   .ps-num {
     font-family: var(--mono);
     font-size: 2.5rem;
     font-weight: 300;
     letter-spacing: -0.03em;
     color: var(--text-3);
+    transition: color 0.4s;
     line-height: 1;
   }
   .ps-label {
@@ -564,6 +726,7 @@
     line-height: 1.15;
     letter-spacing: -0.02em;
     margin-bottom: 10px;
+    transition: color 0.4s;
   }
   .ps-body { color: var(--text-2); font-size: 0.88rem; line-height: 1.55; }
 
@@ -577,7 +740,7 @@
   .pricing-head h2 {
     font-family: var(--serif);
     font-weight: 400;
-    font-size: clamp(1.9rem, 6vw, 3.4rem);
+    font-size: clamp(2rem, 6vw, 4rem);
     line-height: 1.05;
     letter-spacing: -0.03em;
     margin-bottom: 16px;
@@ -606,11 +769,12 @@
     padding: 36px 28px 32px;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s var(--ease), border-color 0.3s;
+    transition: all 0.4s var(--ease);
   }
   .plan:hover {
     transform: translateY(-4px);
     border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.9);
   }
   .plan.featured {
     background: linear-gradient(180deg, #1e1b3a, #14122a);
@@ -622,6 +786,15 @@
     transform: scale(1.03) translateY(-4px);
     border-color: rgba(255, 74, 28, 0.8);
   }
+  .plan.featured::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: radial-gradient(ellipse at top, rgba(255, 74, 28, 0.12), transparent 60%);
+    pointer-events: none;
+  }
+  .plan > * { position: relative; z-index: 1; }
   .plan-badge {
     position: absolute;
     top: -14px;
@@ -719,7 +892,7 @@
     cursor: pointer;
     min-height: var(--tap-target);
   }
-  .plan-cta:hover {
+  .plan-cta:active {
     background: rgba(255, 255, 255, 0.06);
     border-color: rgba(255, 255, 255, 0.3);
   }
@@ -770,6 +943,7 @@
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--line);
     border-radius: 12px;
+    transition: all 0.3s var(--ease);
   }
   .addon-name { font-size: 0.9rem; font-weight: 500; color: var(--text); margin-bottom: 6px; }
   .addon-price { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); letter-spacing: 0.02em; }
@@ -783,8 +957,8 @@
   }
   .quote-main {
     font-family: var(--serif);
-    font-size: clamp(1.5rem, 3vw, 2.4rem);
-    line-height: 1.22;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    line-height: 1.2;
     letter-spacing: -0.02em;
     font-style: italic;
     position: relative;
@@ -851,6 +1025,7 @@
     min-height: 60px;
   }
   .faq-q:hover { color: var(--accent); }
+  .faq-q:active { padding-left: 8px; }
   .faq-q .n {
     font-family: var(--mono);
     font-size: 0.7rem;
@@ -877,7 +1052,7 @@
   .faq-a {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s var(--ease), padding 0.4s;
+    transition: max-height 0.5s var(--ease), padding 0.5s;
   }
   .faq-item.open .faq-a { max-height: 400px; padding-bottom: 24px; }
   .faq-a-inner {
@@ -890,15 +1065,32 @@
 
   /* ============ CTA ============ */
   .cta {
-    background: var(--bg-2);
+    background:
+      radial-gradient(circle at 25% 50%, rgba(255,74,28,0.12), transparent 55%),
+      radial-gradient(circle at 75% 50%, rgba(79,124,255,0.1), transparent 55%),
+      var(--bg-2);
     border: 1px solid var(--line);
     border-radius: 20px;
-    padding: 72px 32px;
+    padding: 80px 32px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
     max-width: 1440px;
     margin: 0 auto;
   }
-  .cta-inner { max-width: 800px; margin: 0 auto; }
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+    pointer-events: none;
+  }
+  .cta-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
   .cta-meta {
     font-family: var(--mono);
     font-size: 0.7rem;
@@ -910,8 +1102,8 @@
   .cta-meta::before { content: '◉ '; color: var(--lime); }
   .cta-title {
     font-family: var(--serif);
-    font-size: clamp(1.9rem, 7vw, 4rem);
-    line-height: 1.05;
+    font-size: clamp(2rem, 7vw, 4.5rem);
+    line-height: 1.02;
     letter-spacing: -0.04em;
     font-weight: 400;
     margin-bottom: 32px;
@@ -926,7 +1118,7 @@
     letter-spacing: 0.1em;
     border: 1px solid var(--line-hi);
     border-radius: 99px;
-    transition: all 0.3s var(--ease);
+    transition: all 0.35s var(--ease);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -936,7 +1128,7 @@
     max-width: 320px;
   }
   .cta-btn::after { content: '→'; }
-  .cta-btn:hover {
+  .cta-btn:active {
     border-color: var(--text);
     background: var(--text);
     color: var(--bg);
@@ -945,49 +1137,36 @@
     background: var(--accent);
     border-color: var(--accent);
     color: var(--text);
-  }
-  .cta-btn.primary:hover {
-    background: var(--lime);
-    border-color: var(--lime);
-    color: var(--bg);
+    box-shadow: 0 20px 40px -15px rgba(255,74,28,0.5);
   }
 
-
-  /* ============ CONTACT FORM ============ */
-  .contact-form { max-width: 760px; margin: 0 auto; text-align: left; }
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-  .contact-form label { display: block; margin-bottom: 14px; }
-  .contact-form label > span {
-    display: block;
-    font-family: var(--mono);
-    font-size: .68rem;
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    color: var(--text-3);
-    margin-bottom: 7px;
+  /* ============ HUGE MARQUEE ============ */
+  .marquee-huge {
+    padding: 32px 0;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 9vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(180deg, transparent, rgba(255,74,28,0.03));
   }
-  .contact-form input,
-  .contact-form select,
-  .contact-form textarea {
-    width: 100%;
-    background: rgba(255,255,255,.035);
-    border: 1px solid var(--line-hi);
-    border-radius: 10px;
-    padding: 14px 15px;
-    color: var(--text);
-    font: inherit;
-    outline: none;
-    transition: border-color .2s, background .2s;
+  .marquee-huge-track {
+    display: flex;
+    gap: 40px;
+    white-space: nowrap;
+    animation: tick 32s linear infinite;
+    width: max-content;
+    align-items: center;
   }
-  .contact-form textarea { resize: vertical; min-height: 130px; }
-  .contact-form input::placeholder,
-  .contact-form textarea::placeholder { color: var(--text-3); }
-  .contact-form input:focus,
-  .contact-form select:focus,
-  .contact-form textarea:focus { border-color: var(--accent); background: rgba(255,74,28,.035); }
-  .form-note { text-align: center; color: var(--text-3); font-size: .78rem; margin-top: 14px; }
-  .form-note a { color: var(--text-2); }
-  .form-note a:hover { color: var(--accent); }
+  .marquee-huge-track span { display: flex; align-items: center; gap: 40px; }
+  .marquee-huge-track span em { font-style: italic; color: var(--accent); }
+  .marquee-huge-track span::after {
+    content: '✱';
+    color: var(--accent);
+    font-size: 0.55em;
+  }
 
   /* ============ FOOTER ============ */
   footer { padding: 56px 0 32px; border-top: 1px solid var(--line); }
@@ -1008,11 +1187,12 @@
     font-weight: 400;
     margin-bottom: 18px;
   }
-  .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+  .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
   .foot-col a {
     font-size: 0.9rem;
     color: var(--text-2);
     transition: color 0.2s, padding-left 0.3s;
+    display: inline-block;
     padding: 8px 0;
     min-height: 40px;
     display: flex;
@@ -1040,91 +1220,13 @@
   /* ============ REVEAL ============ */
   .reveal {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    transform: translateY(24px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
   }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
-
-  /* ============ PROJECT MODAL ============ */
-  .project-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 2000;
-    display: grid;
-    place-items: center;
-    padding: 24px;
-    background: rgba(5, 6, 9, 0.82);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.3s var(--ease), visibility 0.3s;
-  }
-  .project-modal.open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-  .project-modal-card {
-    width: min(760px, 100%);
-    max-height: min(720px, 90vh);
-    overflow: auto;
-    background: var(--surface);
-    border: 1px solid var(--line-hi);
-    border-radius: 20px;
-    padding: 32px;
-    position: relative;
-    transform: translateY(20px) scale(.98);
-    transition: transform 0.4s var(--ease);
-  }
-  .project-modal.open .project-modal-card { transform: translateY(0) scale(1); }
-  .project-modal-close {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--line);
-    border-radius: 50%;
-    font-size: 1.4rem;
-    color: var(--text-2);
-  }
-  .project-modal-close:hover { color: var(--accent); border-color: var(--accent); }
-  .project-modal-kicker {
-    font-family: var(--mono);
-    color: var(--accent);
-    font-size: .7rem;
-    text-transform: uppercase;
-    letter-spacing: .12em;
-    margin-bottom: 12px;
-  }
-  .project-modal h3 {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    font-weight: 400;
-    line-height: 1;
-    margin-bottom: 20px;
-  }
-  .project-modal p { color: var(--text-2); line-height: 1.75; max-width: 620px; }
-  .project-modal-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 24px;
-  }
-  .project-modal-tech span {
-    font-family: var(--mono);
-    font-size: .68rem;
-    padding: 7px 10px;
-    border: 1px solid var(--line-hi);
-    border-radius: 99px;
-    color: var(--text-2);
-  }
-
   /* ============================================================
-     RESPONSIVE
+     RESPONSIVE — MOBILE FIRST
      ============================================================ */
 
   /* TABLET */
@@ -1153,107 +1255,131 @@
   @media (max-width: 780px) {
     body { font-size: 15px; }
     .container { padding: 0 18px; }
-    section { padding: 48px 0; }
+    section { padding: 56px 0; }
 
+    /* NAV */
     .nav-inner { grid-template-columns: 1fr auto; padding: 12px 18px; gap: 12px; }
     .nav-menu { display: none; }
     .nav-actions { display: none; }
-    .burger { display: flex; justify-self: end; }
+    .burger { display: flex; }
 
+    /* HERO */
     .hero { padding: 32px 0 24px; }
     .hero-meta { grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
     .hero-meta div { gap: 2px; font-size: 0.65rem; }
-    .hero-title { font-size: clamp(2.2rem, 13vw, 4rem); margin-bottom: 28px; }
+    .hero-title { font-size: clamp(2.2rem, 13vw, 4rem); margin-bottom: 28px; line-height: 1; }
     .hero-bottom { gap: 24px; padding-top: 24px; }
     .hero-copy { font-size: 0.98rem; }
     .action-btn { padding: 16px 0; font-size: 0.82rem; }
     .hero-index { font-size: 0.65rem; text-align: left; }
     .hero-index div { display: flex; justify-content: space-between; padding: 4px 0; }
 
+    /* HERO ART — stack vertikalisht */
     .hero-art { aspect-ratio: auto; grid-template-columns: 1fr; margin-top: 32px; }
     .hero-art-col {
       border-right: none;
       border-bottom: 1px solid var(--line);
-      min-height: 110px;
+      min-height: 120px;
       padding: 20px;
-      gap: 14px;
+      gap: 16px;
     }
     .hero-art-col:last-child { border-bottom: none; }
-    .hero-art-col .big { font-size: 1.6rem; }
+    .hero-art-col .big { font-size: 1.7rem; }
 
-    .sec-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+    /* SEC HEAD */
+    .sec-title { font-size: clamp(1.7rem, 7vw, 2.6rem); }
 
+    /* SERVICES */
     .service-row {
       grid-template-columns: 1fr auto;
-      gap: 6px 12px;
-      padding: 18px 0;
+      gap: 8px 12px;
+      padding: 20px 0;
     }
     .s-num { display: none; }
-    .s-title { font-size: 1.3rem; grid-column: 1 / -1; }
+    .s-title { font-size: 1.35rem; grid-column: 1 / -1; }
     .s-desc { display: block; font-size: 0.85rem; grid-column: 1 / -1; }
     .s-tag { display: none; }
     .s-arrow { grid-column: 2; grid-row: 1; }
 
+    /* WORK */
     .work-info { padding: 16px; flex-direction: column; align-items: flex-start; gap: 6px; }
     .work-info h3 { font-size: 1.25rem; }
     .work-info > span.work-cat { order: -1; }
     .work-thumb { aspect-ratio: 16/10; }
 
+    /* PROCESS */
     .process { grid-template-columns: 1fr; }
-    .process-step { border-right: none; border-bottom: 1px solid var(--line); min-height: auto; padding: 22px 18px; }
+    .process-step { border-right: none; border-bottom: 1px solid var(--line); min-height: auto; padding: 24px 20px; }
     .process-step:last-child { border-bottom: none; }
     .ps-num { font-size: 2rem; }
-    .ps-title { font-size: 1.25rem; }
+    .ps-title { font-size: 1.3rem; }
 
+    /* PRICING */
     .pricing-head { margin-bottom: 40px; }
-    .pricing-head h2 { font-size: clamp(1.7rem, 7vw, 2.4rem); }
-    .plan { padding: 32px 22px 28px; }
+    .pricing-head h2 { font-size: clamp(1.8rem, 7vw, 2.6rem); }
+    .plan { padding: 32px 24px 28px; }
     .plan.featured { transform: scale(1); }
-    .plan-name { font-size: 1.3rem; }
-    .plan-price .amount { font-size: 2.1rem; }
-    .plan-cta { padding: 18px 22px; font-size: 0.98rem; }
+    .plan-name { font-size: 1.35rem; }
+    .plan-price .amount { font-size: 2.2rem; }
+    .plan-cta { padding: 18px 24px; font-size: 1rem; }
 
+    /* ADD-ONS */
     .addons { padding: 24px 18px; margin-top: 40px; border-radius: 16px; }
     .addons-head { flex-direction: column; align-items: flex-start; gap: 8px; }
     .addons-grid { grid-template-columns: 1fr; gap: 12px; }
+    .addon { padding: 16px; }
+    .addon-name { font-size: 0.92rem; }
+    .addon-price { font-size: 0.82rem; }
 
-    .quote-main { padding-left: 32px; font-size: 1.25rem; }
+    /* QUOTES */
+    .quote-main { padding-left: 32px; font-size: 1.3rem; }
     .quote-main::before { font-size: 4rem; }
+    .quote-side { gap: 20px; }
     .quote-side-item p { font-size: 0.88rem; }
 
+    /* FAQ */
     .faq-q { grid-template-columns: 1fr 30px; gap: 12px; padding: 20px 0; }
     .faq-q .n { display: none; }
-    .faq-q .t { font-size: 1.05rem; }
+    .faq-q .t { font-size: 1.1rem; }
     .faq-a-inner { margin-left: 0; font-size: 0.9rem; }
 
+    /* CTA */
     .cta { padding: 56px 20px; border-radius: 16px; }
-    .cta-title { font-size: clamp(1.6rem, 8vw, 2.2rem); margin-bottom: 24px; }
+    .cta-title { font-size: clamp(1.7rem, 8vw, 2.4rem); margin-bottom: 24px; }
     .cta-actions { flex-direction: column; gap: 10px; }
-    .cta-btn { max-width: none; width: 100%; padding: 18px 22px; font-size: 0.82rem; }
+    .cta-btn { max-width: none; width: 100%; padding: 20px 24px; font-size: 0.82rem; }
     .cta-btn::after { content: ''; }
-    .form-grid { grid-template-columns: 1fr; gap: 0; }
 
+    /* MARQUEE */
+    .marquee-huge { padding: 24px 0; }
+    .marquee-huge-track { gap: 30px; }
+    .marquee-huge-track span { gap: 30px; }
+
+    /* FOOTER */
     footer { padding: 40px 0 24px; }
     .foot-grid { grid-template-columns: 1fr; gap: 32px; padding-bottom: 32px; }
     .foot-bottom { flex-direction: column; text-align: center; gap: 12px; }
     .foot-bottom-links { justify-content: center; }
     .foot-col a { padding: 10px 0; min-height: 44px; }
 
+    /* LOGO smaller */
     .brand-logo.lg .logo-cube { width: 42px; height: 42px; }
     .brand-logo.lg .logo-wordmark { font-size: 1.7rem; }
     .brand-logo.lg .logo-star { width: 12px; height: 12px; margin-bottom: 18px; }
   }
 
+  /* MOBILE I VOGËL */
   @media (max-width: 420px) {
     .container { padding: 0 16px; }
-    section { padding: 40px 0; }
-    .hero-title { font-size: 2rem; }
-    .sec-title { font-size: 1.55rem; }
-    .plan-price .amount { font-size: 1.9rem; }
+    section { padding: 48px 0; }
+    .hero-title { font-size: 2.1rem; }
+    .sec-title { font-size: 1.6rem; }
+    .plan-price .amount { font-size: 2rem; }
     .hero-meta { font-size: 0.62rem; }
     .hero-meta div strong { font-size: 0.82rem; }
   }
 
+  /* Prefers reduced motion */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -1262,17 +1388,43 @@
     .reveal { opacity: 1; transform: none; }
     .hero-title .line > span { transform: none !important; }
   }
+
+  /* Landscape mobile */
+  @media (max-width: 780px) and (orientation: landscape) {
+    .hero { padding: 24px 0; }
+    .hero-title { font-size: 2rem; }
+  }
 </style>
 </head>
 <body>
 
+<!-- ============ CURSOR (vetëm desktop) ============ -->
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Booking Q1 2025</span>
+    <span>Est. 2018 — Tirana / Remote</span>
+    <span>Currently: 4 open slots</span>
+    <span>Avg. reply time: 2h</span>
+    <span>Booking Q1 2025</span>
+    <span>Est. 2018 — Tirana / Remote</span>
+    <span>Currently: 4 open slots</span>
+    <span>Avg. reply time: 2h</span>
+  </div>
+</div>
+
 <!-- ============ NAV ============ -->
-<nav class="nav">
+<nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="#" class="brand-logo" aria-label="bytebuilt home">
       <svg class="logo-cube" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M 50 6 L 88 28 L 88 72 L 50 94 L 12 72 L 12 28 Z" fill="none" stroke="#eef0f6" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M 50 50 L 12 28 M 50 50 L 88 28 M 50 50 L 50 94" fill="none" stroke="#eef0f6" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M 50 6 L 88 28 L 88 72 L 50 94 L 12 72 L 12 28 Z"
+              fill="none" stroke="#eef0f6" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M 50 50 L 12 28 M 50 50 L 88 28 M 50 50 L 50 94"
+              fill="none" stroke="#eef0f6" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
         <path d="M 42 22 L 58 30 L 42 38" fill="none" stroke="#ff4a1c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M 32 58 L 20 66 L 32 74" fill="none" stroke="#ff4a1c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M 64 58 L 76 66 L 64 74" fill="none" stroke="#ff4a1c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1284,7 +1436,7 @@
         </svg>
       </span>
     </a>
-    <ul class="nav-menu">
+    <ul class="nav-menu" id="navMenu">
       <li><a href="#services">Services</a></li>
       <li><a href="#work">Work</a></li>
       <li><a href="#process">Process</a></li>
@@ -1294,10 +1446,10 @@
     <div class="nav-actions">
       <a href="#contact">Contact</a>
       <a href="#contact" class="nav-cta">Start a project</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </nav>
 
@@ -1319,12 +1471,14 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero">
+  <div class="hero-glow"></div>
+
   <div class="container">
     <div class="hero-meta reveal">
       <div><span>Studio</span><strong>bytebuilt®</strong></div>
-      <div><span>Based in</span><strong>Tirana, Albania</strong></div>
+      <div><span>Founded</span><strong>2018, Tirana</strong></div>
       <div><span>Practice</span><strong>Web · Brand</strong></div>
-      <div class="live"><span>Status</span><strong>Accepting projects</strong></div>
+      <div class="live"><span>Availability</span><strong>4 slots</strong></div>
     </div>
 
     <h1 class="hero-title" id="heroTitle">
@@ -1335,8 +1489,8 @@
 
     <div class="hero-bottom">
       <p class="hero-copy reveal">
-        bytebuilt creates custom websites for businesses, creators, and brands
-        that want a stronger digital presence. <strong>No templates, no shortcuts.</strong>
+        bytebuilt is a small studio crafting considered digital work for brands
+        that care about the craft. <strong>No templates, no shortcuts.</strong>
       </p>
 
       <div class="hero-actions reveal">
@@ -1346,21 +1500,21 @@
       </div>
 
       <div class="hero-index reveal">
-        <div><strong>Custom</strong> Websites</div>
-        <div><strong>HTML · CSS · JS</strong> Development</div>
-        <div><strong>Mobile-first</strong> Responsive</div>
-        <div><strong>Direct</strong> Client Support</div>
+        <div><strong>87</strong> Projects shipped</div>
+        <div><strong>11 yrs</strong> Avg. experience</div>
+        <div><strong>94%</strong> Client retention</div>
+        <div><strong>3.4×</strong> Avg. ROI uplift</div>
       </div>
     </div>
 
-    <div class="hero-art reveal">
+    <div class="hero-art reveal" id="heroArt">
       <div class="hero-art-col">
         <span>Now building</span>
         <div class="big">Precision<br>over <em>volume.</em></div>
         <span>↳ See selected projects below</span>
       </div>
       <div class="hero-art-col">
-        <span>Our focus</span>
+        <span>Focus 2025</span>
         <div>
           Editorial websites<br>
           Commerce<br>
@@ -1376,8 +1530,9 @@
           <div style="color: var(--accent); margin-top: 10px;">◐ In progress ×3</div>
           <div style="color: rgba(238,240,246,0.4); margin-top: 10px;">○ Paused</div>
         </div>
-        <span>Available for new projects</span>
+        <span>Updated 4h ago</span>
       </div>
+      <div class="hero-bar" id="heroBar"></div>
     </div>
   </div>
 </section>
@@ -1394,21 +1549,21 @@
       <div class="service-row">
         <span class="s-num">01</span>
         <span class="s-title">Web design</span>
-        <span class="s-desc">Modern layouts, clear structure, and responsive interfaces built around your brand.</span>
+        <span class="s-desc">Editorial layouts, systems thinking, and interfaces designed to age well.</span>
         <span class="s-tag">Core</span>
         <span class="s-arrow">→</span>
       </div>
       <div class="service-row">
         <span class="s-num">02</span>
         <span class="s-title">Development</span>
-        <span class="s-desc">Clean HTML, CSS, and JavaScript built for speed, responsiveness, and easy maintenance.</span>
+        <span class="s-desc">Hand-written HTML, CSS, and JS. No bloat, no plugin stacks.</span>
         <span class="s-tag">Core</span>
         <span class="s-arrow">→</span>
       </div>
       <div class="service-row">
         <span class="s-num">03</span>
         <span class="s-title">E-commerce</span>
-        <span class="s-desc">Product pages, carts, checkout integrations, and responsive storefront experiences.</span>
+        <span class="s-desc">Storefronts that convert and feel good to use.</span>
         <span class="s-tag">Commerce</span>
         <span class="s-arrow">→</span>
       </div>
@@ -1446,37 +1601,45 @@
     </div>
 
     <div class="work-grid">
-      <button type="button" class="work reveal project-card" data-project="1" data-name="Northwind Capital" data-category="Fintech" data-description="Professional finance website with a focused, trustworthy interface." data-tech="HTML · CSS · JavaScript"><div class="work-thumb" data-index="01"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=75&auto=format&fit=crop" alt="Fintech website project preview" loading="lazy">
+      <a href="#" class="work reveal">
+        <div class="work-thumb" data-index="①">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1400&q=80&auto=format&fit=crop" alt="" loading="lazy">
         </div>
         <div class="work-info">
           <span class="work-cat">Fintech · 2024</span>
           <h3>Northwind <em>Capital</em></h3>
         </div>
-      </button>
+      </a>
 
-      <button type="button" class="work reveal project-card" data-project="2" data-name="Atlas Apparel" data-category="E-commerce" data-description="Modern storefront concept designed around products, browsing, and conversion." data-tech="HTML · CSS · JavaScript"><div class="work-thumb" data-index="02"><img src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=900&q=75&auto=format&fit=crop" alt="E-commerce website project preview" loading="lazy">
+      <a href="#" class="work reveal">
+        <div class="work-thumb" data-index="②">
+          <img src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=1200&q=80&auto=format&fit=crop" alt="" loading="lazy">
         </div>
         <div class="work-info">
           <span class="work-cat">E-commerce · 2024</span>
           <h3>Atlas <em>Apparel</em></h3>
         </div>
-      </button>
+      </a>
 
-      <button type="button" class="work reveal project-card" data-project="3" data-name="Pulse Analytics" data-category="SaaS" data-description="Clean SaaS presentation focused on product clarity and strong calls to action." data-tech="HTML · CSS · JavaScript"><div class="work-thumb" data-index="03"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=75&auto=format&fit=crop" alt="SaaS analytics website project preview" loading="lazy">
+      <a href="#" class="work reveal">
+        <div class="work-thumb" data-index="③">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop" alt="" loading="lazy">
         </div>
         <div class="work-info">
           <span class="work-cat">SaaS · 2023</span>
           <h3>Pulse <em>Analytics</em></h3>
         </div>
-      </button>
+      </a>
 
-      <button type="button" class="work reveal project-card" data-project="4" data-name="Maison Noir" data-category="Hospitality" data-description="Premium hospitality concept with editorial visuals and mobile-first layouts." data-tech="HTML · CSS · JavaScript"><div class="work-thumb" data-index="04"><img src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?w=900&q=75&auto=format&fit=crop" alt="Hospitality website project preview" loading="lazy">
+      <a href="#" class="work reveal">
+        <div class="work-thumb" data-index="④">
+          <img src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?w=1400&q=80&auto=format&fit=crop" alt="" loading="lazy">
         </div>
         <div class="work-info">
           <span class="work-cat">Hospitality · 2023</span>
           <h3>Maison <em>Noir</em></h3>
         </div>
-      </button>
+      </a>
     </div>
   </div>
 </section>
@@ -1543,14 +1706,14 @@
     <div class="pricing-head reveal">
       <div class="sec-num">Pricing / 04</div>
       <h2>Clear packages, <em>no surprises.</em></h2>
-      <p>One-time build cost. No hidden fees, no subscriptions. Packages are scoped around your needs. Hosting, domain, and third-party services are quoted separately when required.</p>
+      <p>One-time build cost. No hidden fees, no subscriptions, no fluff. Every package includes hosting setup, SSL, and 30 days of free support.</p>
     </div>
 
     <div class="pricing-grid reveal">
 
       <div class="plan featured">
         <div class="plan-badge">Most Popular</div>
-        <h3 class="plan-name">Starter</h3>
+        <h3 class="plan-name">Standard</h3>
         <div class="plan-price">
           <span class="amount">€200</span>
           <span class="period">one-time</span>
@@ -1559,11 +1722,11 @@
         <ul class="plan-features">
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Standard custom design</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Mobile responsive</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Up to 5 pages</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Slider Revolution</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Business logo design</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Contact form / WhatsApp</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Basic SEO setup</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 30-day post-launch support</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 2+ webmail addresses</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 1 GB storage space</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> SEO + 10+ pages</li>
         </ul>
         <a href="#contact" class="plan-cta">Get Started</a>
       </div>
@@ -1571,7 +1734,7 @@
       <div class="plan">
         <h3 class="plan-name">E-<em>Commerce</em></h3>
         <div class="plan-price">
-          <span class="amount">€500+</span>
+          <span class="amount">€400</span>
           <span class="period">one-time</span>
         </div>
         <p class="plan-desc">Full online store — products, payments, orders, and everything needed to sell online.</p>
@@ -1579,10 +1742,10 @@
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> E-commerce design</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Multiple products</li>
           <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Mobile responsive</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Cart & checkout integration</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Product catalog</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Order flow</li>
-          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> SEO + analytics setup</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Slider Revolution</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Business logo design</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 2+ webmail addresses</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> SEO + 1 GB storage</li>
         </ul>
         <a href="#contact" class="plan-cta">Get Started</a>
       </div>
@@ -1590,8 +1753,8 @@
       <div class="plan">
         <h3 class="plan-name">Pro <em>Custom</em></h3>
         <div class="plan-price">
-          <span class="amount">€700+</span>
-          <span class="period">starting price</span>
+          <span class="amount">€500</span>
+          <span class="period">one-time</span>
         </div>
         <p class="plan-desc">For businesses that need something bigger — portals, dashboards, multi-language, integrations.</p>
         <ul class="plan-features">
@@ -1627,45 +1790,43 @@
   </div>
 </section>
 
-<!-- ============ WHY BYTEBUILT ============ -->
+<!-- ============ QUOTES ============ -->
 <section>
   <div class="container">
     <div class="sec-head reveal">
-      <div class="sec-num">Why ByteBuilt / 05</div>
-      <h2 class="sec-title">Built around <em>your business.</em></h2>
+      <div class="sec-num">Client words / 05</div>
+      <h2 class="sec-title">Straight from the <em>inbox.</em></h2>
     </div>
-    <div class="process reveal">
-      <div class="process-step">
-        <div><div class="ps-num">01</div><div class="ps-label">Custom</div></div>
-        <div><div class="ps-title">No recycled templates</div><p class="ps-body">Every layout is designed around your brand, content, goals, and audience.</p></div>
+
+    <div class="quotes">
+      <div class="quote-main reveal">
+        bytebuilt shipped our new site in three weeks and conversion is up 40%. They pushed back on ideas that weren't working — which we appreciated more than the compliments.
+        <div class="quote-author">
+          <div class="quote-avatar">SM</div>
+          <div>
+            <strong>Sarah Mitchell</strong>
+            <span>CEO, Atlas Apparel</span>
+          </div>
+        </div>
       </div>
-      <div class="process-step">
-        <div><div class="ps-num">02</div><div class="ps-label">Fast</div></div>
-        <div><div class="ps-title">Lean development</div><p class="ps-body">Clean HTML, CSS, and JavaScript without unnecessary plugin stacks or bloat.</p></div>
-      </div>
-      <div class="process-step">
-        <div><div class="ps-num">03</div><div class="ps-label">Mobile-first</div></div>
-        <div><div class="ps-title">Looks right everywhere</div><p class="ps-body">Responsive layouts are considered from the beginning, not patched in at the end.</p></div>
-      </div>
-      <div class="process-step">
-        <div><div class="ps-num">04</div><div class="ps-label">Support</div></div>
-        <div><div class="ps-title">You are not left alone</div><p class="ps-body">After launch, we can continue with updates, maintenance, and improvements.</p></div>
+
+      <div class="quote-side reveal">
+        <div class="quote-side-item">
+          <p>I've worked with three agencies. bytebuilt is the first that felt like a partner instead of a vendor.</p>
+          <strong>Marcus Chen, Pulse Analytics</strong>
+        </div>
+        <div class="quote-side-item">
+          <p>The design is beautiful, but what impressed us most was the performance. Load time went from 4.2s to under 400ms.</p>
+          <strong>David Okafor, Summit Estates</strong>
+        </div>
+        <div class="quote-side-item">
+          <p>They asked better questions than our internal team. The work is precise, thoughtful, and holds up a year later.</p>
+          <strong>Elena Rossi, Northwind Capital</strong>
+        </div>
       </div>
     </div>
   </div>
 </section>
-
-
-<!-- ============ PROJECT MODAL ============ -->
-<div class="project-modal" id="projectModal" aria-hidden="true">
-  <div class="project-modal-card" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
-    <button class="project-modal-close" id="projectModalClose" aria-label="Close project details">×</button>
-    <div class="project-modal-kicker" id="projectModalCategory"></div>
-    <h3 id="projectModalTitle"></h3>
-    <p id="projectModalDescription"></p>
-    <div class="project-modal-tech" id="projectModalTech"></div>
-  </div>
-</div>
 
 <!-- ============ FAQ ============ -->
 <section id="faq">
@@ -1723,26 +1884,20 @@
 <!-- ============ CTA ============ -->
 <div class="cta" id="contact">
   <div class="cta-inner reveal">
-    <div class="cta-meta">Currently accepting new projects</div>
+    <div class="cta-meta">Ready when you are — booking Q1 2025</div>
     <h2 class="cta-title">Let's build something <em>worth remembering.</em></h2>
-    <form class="contact-form" id="contactForm">
-      <div class="form-grid">
-        <label><span>Name</span><input type="text" name="name" placeholder="Your name" required></label>
-        <label><span>Business</span><input type="text" name="business" placeholder="Business name"></label>
-        <label><span>Email</span><input type="email" name="email" placeholder="you@example.com" required></label>
-        <label><span>Budget</span>
-          <select name="budget">
-            <option value="">Select a range</option>
-            <option>€200–€350</option>
-            <option>€350–€700</option>
-            <option>€700+</option>
-          </select>
-        </label>
-      </div>
-      <label><span>What do you need?</span><textarea name="message" rows="5" placeholder="Tell us briefly about your project..." required></textarea></label>
-      <button type="submit" class="cta-btn primary">Send project request</button>
-      <div class="form-note">Or email us directly at <a href="mailto:bytebuiltweb@gmail.com">bytebuiltweb@gmail.com</a></div>
-    </form>
+    <div class="cta-actions">
+      <a href="mailto:bytebuiltweb@gmail.com" class="cta-btn primary">Email us</a>
+      <a href="https://instagram.com/bytebulit.comp" target="_blank" rel="noopener" class="cta-btn">Instagram</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HUGE MARQUEE ============ -->
+<div class="marquee-huge">
+  <div class="marquee-huge-track">
+    <span>Design <em>·</em> Build <em>·</em> Launch <em>·</em> Iterate</span>
+    <span>Design <em>·</em> Build <em>·</em> Launch <em>·</em> Iterate</span>
   </div>
 </div>
 
@@ -1753,8 +1908,10 @@
       <div>
         <a href="#" class="brand-logo lg" aria-label="bytebuilt home">
           <svg class="logo-cube" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M 50 6 L 88 28 L 88 72 L 50 94 L 12 72 L 12 28 Z" fill="none" stroke="#eef0f6" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
-            <path d="M 50 50 L 12 28 M 50 50 L 88 28 M 50 50 L 50 94" fill="none" stroke="#eef0f6" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M 50 6 L 88 28 L 88 72 L 50 94 L 12 72 L 12 28 Z"
+                  fill="none" stroke="#eef0f6" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M 50 50 L 12 28 M 50 50 L 88 28 M 50 50 L 50 94"
+                  fill="none" stroke="#eef0f6" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
             <path d="M 42 22 L 58 30 L 42 38" fill="none" stroke="#ff4a1c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M 32 58 L 20 66 L 32 74" fill="none" stroke="#ff4a1c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M 64 58 L 76 66 L 64 74" fill="none" stroke="#ff4a1c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1771,17 +1928,17 @@
       <div class="foot-col">
         <h5>Services</h5>
         <ul>
-          <li><a href="#services">Web design</a></li>
-          <li><a href="#services">Development</a></li>
-          <li><a href="#services">E-commerce</a></li>
-          <li><a href="#services">Brand identity</a></li>
+          <li><a href="#">Web design</a></li>
+          <li><a href="#">Development</a></li>
+          <li><a href="#">E-commerce</a></li>
+          <li><a href="#">Brand identity</a></li>
         </ul>
       </div>
       <div class="foot-col">
         <h5>Studio</h5>
         <ul>
           <li><a href="#">About</a></li>
-          <li><a href="#work">Selected work</a></li>
+          <li><a href="#">Selected work</a></li>
           <li><a href="#">Journal</a></li>
           <li><a href="#">Careers</a></li>
         </ul>
@@ -1791,12 +1948,12 @@
         <ul>
           <li><a href="mailto:bytebuiltweb@gmail.com">bytebuiltweb@gmail.com</a></li>
           <li><a href="https://instagram.com/bytebulit.comp" target="_blank" rel="noopener">@bytebulit.comp</a></li>
-          <li><a href="#contact">Tirana, Albania</a></li>
+          <li><a href="#">Tirana, Albania</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 bytebuilt®</span>
+      <span>© 2025 bytebuilt®</span>
       <div class="foot-bottom-links">
         <a href="https://instagram.com/bytebulit.comp" target="_blank" rel="noopener">Instagram</a>
         <a href="#">Privacy</a>
@@ -1810,10 +1967,53 @@
 (function() {
   'use strict';
 
+  const isTouch = matchMedia('(pointer: coarse)').matches;
+  const isMobile = window.matchMedia('(max-width: 780px)').matches;
+
+  /* ============ CUSTOM CURSOR (vetëm desktop) ============ */
+  if (!isTouch) {
+    const dot = document.getElementById('curDot');
+    const ring = document.getElementById('curRing');
+    let mx = innerWidth / 2, my = innerHeight / 2;
+    let rx = mx, ry = my;
+
+    window.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
+    }, { passive: true });
+
+    (function loop() {
+      rx += (mx - rx) * 0.32;
+      ry += (my - ry) * 0.32;
+      if (Math.abs(mx - rx) < 0.05) rx = mx;
+      if (Math.abs(my - ry) < 0.05) ry = my;
+      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
+      requestAnimationFrame(loop);
+    })();
+
+    document.querySelectorAll('a, button, .work, .service-row, .plan, .faq-q, .addon')
+      .forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          dot.classList.add('grow');
+          ring.classList.add('grow');
+        });
+        el.addEventListener('mouseleave', () => {
+          dot.classList.remove('grow');
+          ring.classList.remove('grow');
+        });
+      });
+  }
+
   /* ============ HERO TITLE REVEAL ============ */
   window.addEventListener('load', () => {
-    setTimeout(() => document.getElementById('heroTitle').classList.add('ready'), 100);
+    setTimeout(() => document.getElementById('heroTitle').classList.add('ready'), 200);
   });
+
+  /* ============ NAV SCROLL ============ */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', scrollY > 20);
+  }, { passive: true });
 
   /* ============ MOBILE MENU ============ */
   const burger = document.getElementById('burger');
@@ -1830,45 +2030,14 @@
   }
 
   burger.addEventListener('click', () => toggleMobileMenu());
-  mobileLinks.forEach(a => a.addEventListener('click', () => toggleMobileMenu(false)));
 
+  mobileLinks.forEach(a => {
+    a.addEventListener('click', () => toggleMobileMenu(false));
+  });
+
+  // Mbyll menunë me ESC
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      toggleMobileMenu(false);
-      closeProjectModal();
-    }
-  });
-
-
-  /* ============ PROJECT MODAL ============ */
-  const projectModal = document.getElementById('projectModal');
-  const projectModalClose = document.getElementById('projectModalClose');
-  const projectModalTitle = document.getElementById('projectModalTitle');
-  const projectModalCategory = document.getElementById('projectModalCategory');
-  const projectModalDescription = document.getElementById('projectModalDescription');
-  const projectModalTech = document.getElementById('projectModalTech');
-
-  function closeProjectModal() {
-    projectModal.classList.remove('open');
-    projectModal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-
-  document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('click', () => {
-      projectModalTitle.textContent = card.dataset.name;
-      projectModalCategory.textContent = card.dataset.category;
-      projectModalDescription.textContent = card.dataset.description;
-      projectModalTech.innerHTML = card.dataset.tech.split(' · ').map(t => `<span>${t}</span>`).join('');
-      projectModal.classList.add('open');
-      projectModal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-
-  projectModalClose.addEventListener('click', closeProjectModal);
-  projectModal.addEventListener('click', e => {
-    if (e.target === projectModal) closeProjectModal();
+    if (e.key === 'Escape') toggleMobileMenu(false);
   });
 
   /* ============ REVEAL ON SCROLL ============ */
@@ -1898,6 +2067,28 @@
     });
   });
 
+  /* ============ SUBTLE HERO TILT (vetëm desktop) ============ */
+  const heroArt = document.getElementById('heroArt');
+  const heroBar = document.getElementById('heroBar');
+  const hero = document.querySelector('.hero');
+
+  if (!isTouch && !isMobile && hero && heroArt) {
+    hero.addEventListener('mousemove', e => {
+      const rect = heroArt.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
+        heroBar.style.left = (x * 60) + '%';
+      }
+      const cx = (e.clientX / innerWidth - 0.5) * 4;
+      const cy = (e.clientY / innerHeight - 0.5) * 4;
+      heroArt.style.transform = `perspective(1400px) rotateY(${cx}deg) rotateX(${-cy}deg)`;
+    }, { passive: true });
+    hero.addEventListener('mouseleave', () => {
+      heroArt.style.transform = '';
+    });
+  }
+
   /* ============ SMOOTH ANCHORS ============ */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
@@ -1914,26 +2105,7 @@
     });
   });
 
-
-  /* ============ CONTACT FORM ============ */
-  const contactForm = document.getElementById('contactForm');
-  contactForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const data = new FormData(contactForm);
-    const subject = encodeURIComponent('New ByteBuilt project request');
-    const body = encodeURIComponent(
-      `Name: ${data.get('name')}
-Business: ${data.get('business')}
-Email: ${data.get('email')}
-Budget: ${data.get('budget')}
-
-Project:
-${data.get('message')}`
-    );
-    window.location.href = `mailto:bytebuiltweb@gmail.com?subject=${subject}&body=${body}`;
-  });
-
-  console.log('%cbytebuilt® — Web design & development studio.',
+  console.log('%cbytebuilt® — Websites for businesses that refuse to be forgettable.',
     'color:#ff4a1c;font-weight:800;font-size:13px;');
 })();
 </script>
